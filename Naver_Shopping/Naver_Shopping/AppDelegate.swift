@@ -15,7 +15,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        // 의존성 주입
+        let rootVC = window!.rootViewController as! UINavigationController
+        let mainSearchVC = rootVC.topViewController as! MainSearchViewController
+        mainSearchVC.shopping = ShoppingStore()
+        
         return true
     }
 

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Xpd-Rx-0S8">
+    <device id="retina6_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Main Search View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="MainSearchViewController" customModule="Naver_Shopping" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="검색어 또는 URL 입력" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rOQ-EA-jOv" customClass="SearchTextField" customModule="Naver_Shopping" customModuleProvider="target">
+                                <rect key="frame" x="30" y="450" width="354" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="vKF-wp-fpX"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="go"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tzy-ef-elA">
+                                <rect key="frame" x="137" y="358.33333333333331" width="140" height="71.666666666666686"/>
+                                <string key="text">Naver
+Shopping</string>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="30"/>
+                                <color key="textColor" red="0.13" green="0.91232341610000001" blue="0.16285851879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="rOQ-EA-jOv" firstAttribute="top" secondItem="tzy-ef-elA" secondAttribute="bottom" constant="20" id="2l1-yH-nHF"/>
+                            <constraint firstItem="rOQ-EA-jOv" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="8pe-4c-jfM"/>
+                            <constraint firstItem="tzy-ef-elA" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="CLw-mu-1WC"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rOQ-EA-jOv" secondAttribute="trailing" constant="30" id="RcA-nM-DcJ"/>
+                            <constraint firstItem="rOQ-EA-jOv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="ydH-61-ecc"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="uOE-3n-r8g"/>
+                    <connections>
+                        <outlet property="textField" destination="rOQ-EA-jOv" id="yM5-bw-Soe"/>
+                        <segue destination="UVs-Y5-lh7" kind="show" identifier="ShowSearch" id="SbN-7u-SkK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="992.79999999999995" y="26.53673163418291"/>
+        </scene>
+        <!--Search Result View Controller-->
+        <scene sceneID="lrx-7D-veR">
+            <objects>
+                <viewController id="UVs-Y5-lh7" customClass="SearchResultViewController" customModule="Naver_Shopping" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="g5x-vg-dfV">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="15q-2L-4Ou">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="bI5-YY-lCH">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="iQ8-bU-yD0" customClass="SearchResultCollectionViewCell" customModule="Naver_Shopping" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                        <connections>
+                                            <segue destination="578-U7-NDW" kind="show" identifier="ShowDetail" id="v3P-3c-e84"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ukS-wF-L9X" firstAttribute="trailing" secondItem="15q-2L-4Ou" secondAttribute="trailing" id="Ixt-oT-ngn"/>
+                            <constraint firstItem="ukS-wF-L9X" firstAttribute="bottom" secondItem="15q-2L-4Ou" secondAttribute="bottom" id="Rat-QX-YGt"/>
+                            <constraint firstItem="15q-2L-4Ou" firstAttribute="top" secondItem="ukS-wF-L9X" secondAttribute="top" id="h7x-AT-ZQT"/>
+                            <constraint firstItem="15q-2L-4Ou" firstAttribute="leading" secondItem="ukS-wF-L9X" secondAttribute="leading" id="lCv-i3-lC1"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ukS-wF-L9X"/>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="15q-2L-4Ou" id="q5u-vm-qsq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="I2q-i2-9AW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1892" y="27"/>
+        </scene>
+        <!--Result Detail View Controller-->
+        <scene sceneID="UPE-Zk-ibM">
+            <objects>
+                <viewController id="578-U7-NDW" customClass="ResultDetailViewController" customModule="Naver_Shopping" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4Vi-g9-0oV">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fCC-7x-Rvp">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="fCC-7x-Rvp" firstAttribute="top" secondItem="4Vi-g9-0oV" secondAttribute="topMargin" id="5yW-0F-MAY"/>
+                            <constraint firstItem="fCC-7x-Rvp" firstAttribute="bottom" secondItem="4Vi-g9-0oV" secondAttribute="bottomMargin" id="duV-EC-Dh6"/>
+                            <constraint firstItem="fCC-7x-Rvp" firstAttribute="leading" secondItem="4Vi-g9-0oV" secondAttribute="leading" id="heP-GJ-KXk"/>
+                            <constraint firstAttribute="trailing" secondItem="fCC-7x-Rvp" secondAttribute="trailing" id="m42-KD-T2e"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="fCC-7x-Rvp" id="XWY-11-hEp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VTz-5y-tM7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2779.7101449275365" y="25.446428571428569"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="kJD-pJ-6lS">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Xpd-Rx-0S8" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="6mA-bd-r3i">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="GOK-Sz-mT2"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="M82-Su-xhl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="53.600000000000001" y="26.53673163418291"/>
+        </scene>
+    </scenes>
+</document>
