@@ -56,7 +56,7 @@ Shopping</string>
             </objects>
             <point key="canvasLocation" x="992.79999999999995" y="26.53673163418291"/>
         </scene>
-        <!--Search Result View Controller-->
+        <!--Title-->
         <scene sceneID="lrx-7D-veR">
             <objects>
                 <viewController id="UVs-Y5-lh7" customClass="SearchResultViewController" customModule="Naver_Shopping" customModuleProvider="target" sceneMemberID="viewController">
@@ -65,7 +65,7 @@ Shopping</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="15q-2L-4Ou">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="bI5-YY-lCH">
                                     <size key="itemSize" width="50" height="50"/>
@@ -73,6 +73,10 @@ Shopping</string>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
+                                <activityIndicatorView key="backgroundView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="fIS-pB-I7p">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </activityIndicatorView>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="iQ8-bU-yD0" customClass="SearchResultCollectionViewCell" customModule="Naver_Shopping" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -87,23 +91,57 @@ Shopping</string>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hYU-tY-kDe">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" red="0.90000000000000002" green="0.90000000000000002" blue="0.90000000000000002" alpha="0.69999999999999996" colorSpace="calibratedRGB"/>
+                            </view>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="검색어 또는 URL 입력" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mSD-C3-Dc5" customClass="SearchTextField" customModule="Naver_Shopping" customModuleProvider="target">
+                                <rect key="frame" x="30" y="28" width="354" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="uAE-Af-o3j"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="go"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="ukS-wF-L9X" firstAttribute="trailing" secondItem="mSD-C3-Dc5" secondAttribute="trailing" constant="30" id="8jN-yp-1n9"/>
                             <constraint firstItem="ukS-wF-L9X" firstAttribute="trailing" secondItem="15q-2L-4Ou" secondAttribute="trailing" id="Ixt-oT-ngn"/>
+                            <constraint firstItem="mSD-C3-Dc5" firstAttribute="leading" secondItem="ukS-wF-L9X" secondAttribute="leading" constant="30" id="KeE-sJ-qH8"/>
+                            <constraint firstItem="15q-2L-4Ou" firstAttribute="top" secondItem="ukS-wF-L9X" secondAttribute="top" id="QVG-Tf-b3n"/>
                             <constraint firstItem="ukS-wF-L9X" firstAttribute="bottom" secondItem="15q-2L-4Ou" secondAttribute="bottom" id="Rat-QX-YGt"/>
-                            <constraint firstItem="15q-2L-4Ou" firstAttribute="top" secondItem="ukS-wF-L9X" secondAttribute="top" id="h7x-AT-ZQT"/>
+                            <constraint firstItem="ukS-wF-L9X" firstAttribute="bottom" secondItem="hYU-tY-kDe" secondAttribute="bottom" id="Tpp-i5-9n5"/>
+                            <constraint firstItem="hYU-tY-kDe" firstAttribute="leading" secondItem="ukS-wF-L9X" secondAttribute="leading" id="daT-qS-2Zq"/>
+                            <constraint firstItem="hYU-tY-kDe" firstAttribute="trailing" secondItem="ukS-wF-L9X" secondAttribute="trailing" id="iM8-xd-6P7"/>
                             <constraint firstItem="15q-2L-4Ou" firstAttribute="leading" secondItem="ukS-wF-L9X" secondAttribute="leading" id="lCv-i3-lC1"/>
+                            <constraint firstItem="mSD-C3-Dc5" firstAttribute="top" secondItem="ukS-wF-L9X" secondAttribute="top" constant="-60" id="o2e-WP-rBl"/>
+                            <constraint firstItem="hYU-tY-kDe" firstAttribute="top" secondItem="ukS-wF-L9X" secondAttribute="top" id="zKu-pH-1ki"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ukS-wF-L9X"/>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Title" id="hOh-VA-aNo">
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="R0J-MY-c1p">
+                            <color key="tintColor" red="0.1298694349" green="0.91232341610000001" blue="0.16285851879999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="touchedSearchBarButton:" destination="UVs-Y5-lh7" id="IO3-o0-DFW"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="bgView" destination="hYU-tY-kDe" id="8a8-Jj-Dgn"/>
                         <outlet property="collectionView" destination="15q-2L-4Ou" id="q5u-vm-qsq"/>
+                        <outlet property="indicator" destination="fIS-pB-I7p" id="PKH-YG-FOd"/>
+                        <outlet property="textField" destination="mSD-C3-Dc5" id="cGs-vr-iO7"/>
+                        <outlet property="textFieldConst" destination="o2e-WP-rBl" id="sN2-Rl-9EA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I2q-i2-9AW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1892" y="27"/>
+            <point key="canvasLocation" x="1891.304347826087" y="26.785714285714285"/>
         </scene>
         <!--Result Detail View Controller-->
         <scene sceneID="UPE-Zk-ibM">
@@ -114,7 +152,7 @@ Shopping</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fCC-7x-Rvp">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -129,6 +167,7 @@ Shopping</string>
                             <constraint firstItem="fCC-7x-Rvp" firstAttribute="leading" secondItem="4Vi-g9-0oV" secondAttribute="leading" id="heP-GJ-KXk"/>
                             <constraint firstAttribute="trailing" secondItem="fCC-7x-Rvp" secondAttribute="trailing" id="m42-KD-T2e"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="v4p-XD-ceO"/>
                     </view>
                     <connections>
                         <outlet property="webView" destination="fCC-7x-Rvp" id="XWY-11-hEp"/>

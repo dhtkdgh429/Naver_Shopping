@@ -22,7 +22,8 @@ class ResultDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("result detail : \(String(describing: shoppingItem))")
+        // BackBarItem
+        self.setBackButton()
         
         let url = URL(string: shoppingItem.link!)!
         let request = URLRequest(url: url)
@@ -30,9 +31,4 @@ class ResultDetailViewController: UIViewController {
         
     }
     
-    func webConfig() {
-//        let webConfig = WKWebViewConfiguration()
-        
-        
-    }
 }

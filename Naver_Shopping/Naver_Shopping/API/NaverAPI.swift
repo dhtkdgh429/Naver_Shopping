@@ -40,7 +40,7 @@ struct NaverAPI {
         
         let queryParam = URLQueryItem(name: "query", value: query)
         queryItems.append(queryParam)
-        let displayParam = URLQueryItem(name: "display", value: "33")
+        let displayParam = URLQueryItem(name: "display", value: "36")
         queryItems.append(displayParam)
         
         if let additionalParams = parameters {
