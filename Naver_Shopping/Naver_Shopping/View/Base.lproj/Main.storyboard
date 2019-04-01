@@ -91,10 +91,12 @@ Shopping</string>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hYU-tY-kDe">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zrw-m4-yWI">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
-                                <color key="backgroundColor" red="0.90000000000000002" green="0.90000000000000002" blue="0.90000000000000002" alpha="0.69999999999999996" colorSpace="calibratedRGB"/>
-                            </view>
+                                <connections>
+                                    <action selector="touchedBgButton:" destination="UVs-Y5-lh7" eventType="touchUpInside" id="zPc-WR-0Gq"/>
+                                </connections>
+                            </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="검색어 또는 URL 입력" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mSD-C3-Dc5" customClass="SearchTextField" customModule="Naver_Shopping" customModuleProvider="target">
                                 <rect key="frame" x="30" y="28" width="354" height="50"/>
                                 <constraints>
@@ -107,17 +109,17 @@ Shopping</string>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="Zrw-m4-yWI" firstAttribute="trailing" secondItem="15q-2L-4Ou" secondAttribute="trailing" id="4x3-dw-f7A"/>
                             <constraint firstItem="ukS-wF-L9X" firstAttribute="trailing" secondItem="mSD-C3-Dc5" secondAttribute="trailing" constant="30" id="8jN-yp-1n9"/>
                             <constraint firstItem="ukS-wF-L9X" firstAttribute="trailing" secondItem="15q-2L-4Ou" secondAttribute="trailing" id="Ixt-oT-ngn"/>
                             <constraint firstItem="mSD-C3-Dc5" firstAttribute="leading" secondItem="ukS-wF-L9X" secondAttribute="leading" constant="30" id="KeE-sJ-qH8"/>
                             <constraint firstItem="15q-2L-4Ou" firstAttribute="top" secondItem="ukS-wF-L9X" secondAttribute="top" id="QVG-Tf-b3n"/>
                             <constraint firstItem="ukS-wF-L9X" firstAttribute="bottom" secondItem="15q-2L-4Ou" secondAttribute="bottom" id="Rat-QX-YGt"/>
-                            <constraint firstItem="ukS-wF-L9X" firstAttribute="bottom" secondItem="hYU-tY-kDe" secondAttribute="bottom" id="Tpp-i5-9n5"/>
-                            <constraint firstItem="hYU-tY-kDe" firstAttribute="leading" secondItem="ukS-wF-L9X" secondAttribute="leading" id="daT-qS-2Zq"/>
-                            <constraint firstItem="hYU-tY-kDe" firstAttribute="trailing" secondItem="ukS-wF-L9X" secondAttribute="trailing" id="iM8-xd-6P7"/>
+                            <constraint firstItem="Zrw-m4-yWI" firstAttribute="leading" secondItem="15q-2L-4Ou" secondAttribute="leading" id="e3f-yi-x97"/>
+                            <constraint firstItem="Zrw-m4-yWI" firstAttribute="top" secondItem="15q-2L-4Ou" secondAttribute="top" id="eng-xy-RIP"/>
+                            <constraint firstItem="Zrw-m4-yWI" firstAttribute="bottom" secondItem="15q-2L-4Ou" secondAttribute="bottom" id="hH5-hT-N7a"/>
                             <constraint firstItem="15q-2L-4Ou" firstAttribute="leading" secondItem="ukS-wF-L9X" secondAttribute="leading" id="lCv-i3-lC1"/>
                             <constraint firstItem="mSD-C3-Dc5" firstAttribute="top" secondItem="ukS-wF-L9X" secondAttribute="top" constant="-60" id="o2e-WP-rBl"/>
-                            <constraint firstItem="hYU-tY-kDe" firstAttribute="top" secondItem="ukS-wF-L9X" secondAttribute="top" id="zKu-pH-1ki"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ukS-wF-L9X"/>
                     </view>
@@ -132,7 +134,7 @@ Shopping</string>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="bgView" destination="hYU-tY-kDe" id="8a8-Jj-Dgn"/>
+                        <outlet property="bgButton" destination="Zrw-m4-yWI" id="Jrc-t6-WmD"/>
                         <outlet property="collectionView" destination="15q-2L-4Ou" id="q5u-vm-qsq"/>
                         <outlet property="indicator" destination="fIS-pB-I7p" id="PKH-YG-FOd"/>
                         <outlet property="textField" destination="mSD-C3-Dc5" id="cGs-vr-iO7"/>

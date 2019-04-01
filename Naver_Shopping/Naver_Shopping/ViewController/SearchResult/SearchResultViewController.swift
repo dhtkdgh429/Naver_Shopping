@@ -15,7 +15,7 @@ class SearchResultViewController: UIViewController {
     
     @IBOutlet weak var textField: SearchTextField!
     @IBOutlet weak var textFieldConst: NSLayoutConstraint!
-    @IBOutlet weak var bgView: UIView!
+    @IBOutlet weak var bgButton: UIButton!
     
     var shopping: ShoppingStore! {
         didSet {
@@ -70,8 +70,9 @@ class SearchResultViewController: UIViewController {
         textField.delegate = self
         textField.alpha = 0
         textFieldConst.constant = -60
-        bgView.backgroundColor = UIColor.init(red: 0.9, green: 0.9, blue: 0.9, alpha: 0.7)
-        bgView.isHidden = true
+        // bgButton set
+        bgButton.backgroundColor = UIColor.init(red: 0.9, green: 0.9, blue: 0.9, alpha: 0.7)
+        bgButton.isHidden = true
         
     }
     
@@ -89,6 +90,11 @@ class SearchResultViewController: UIViewController {
         
     }
     
+    @IBAction func touchedBgButton(_ sender: Any) {
+        self.textField.resignFirstResponder()
+        self.animatedTextfield()
+    }
+    
     private func animatedTextfield() {
         
         UIView.animate(withDuration: 0.3) {
@@ -96,12 +102,12 @@ class SearchResultViewController: UIViewController {
             if self.isShow {
                 self.textFieldConst.constant = -60
                 self.textField.alpha = 0
-                self.bgView.isHidden = true
+                self.bgButton.isHidden = true
                 self.isShow = false
             } else {
                 self.textFieldConst.constant = 20
                 self.textField.alpha = 1
-                self.bgView.isHidden = false
+                self.bgButton.isHidden = false
                 self.isShow = true
             }
             self.view.layoutIfNeeded()
