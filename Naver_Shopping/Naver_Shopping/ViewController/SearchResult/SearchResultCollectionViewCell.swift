@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class SearchResultCollectionViewCell: UICollectionViewCell {
 
@@ -15,6 +16,8 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var lpriceLabel: UILabel!
     
     var url: String?
+    var image: UIImage?
+    
     
     let numberFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
@@ -48,21 +51,16 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
     }
     
     func setImage(_ url: String) {
-        if url == self.url {
-            return
-        }
-        self.url = url
+        self.itemImage.kf.setImage(with: URL(string: url))
         
-//        print("Download Started")
-        if let imageURL = URL(string: url) {
-            GlobalUtil.getData(from: imageURL) { data, response, error in
-                guard let data = data, error == nil else { return }
-//                print("Download Finished")
-                DispatchQueue.main.async() {
-                    self.itemImage.image = UIImage(data: data)
-                }
-            }
+        if URL(string: url) != nil {
+            let resource = ImageResource(downloadURL: URL(string: url)!, cacheKey: url)
+            self.itemImage.kf.setImage(with: resource)
         }
+        else{
+            self.itemImage.image = nil
+        }
+        
     }
 }
 

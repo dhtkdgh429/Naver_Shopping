@@ -14,7 +14,6 @@ class GlobalUtil {
         URLSession.shared.dataTask(with: url!, completionHandler: completion).resume()
     }
     
-    
 }
 
 

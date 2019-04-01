@@ -1,0 +1,6 @@
+framework module Pods_Naver_Shopping {
+  umbrella header "Pods-Naver_Shopping-umbrella.h"
+
+  export *
+  module * { export * }
+}

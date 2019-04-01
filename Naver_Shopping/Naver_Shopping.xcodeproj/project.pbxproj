@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0366A542DEE86974CB45AAB9 /* Pods_Naver_Shopping.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C081B5FA80487DFFB1F44C2 /* Pods_Naver_Shopping.framework */; };
 		CB16776322508E0F00399B4D /* ResultDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB16776222508E0F00399B4D /* ResultDetailViewController.swift */; };
 		CBB28408224F997A00333684 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB28407224F997A00333684 /* SearchResultViewController.swift */; };
 		CBB2840B224FA6C100333684 /* SearchResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB28409224FA6C100333684 /* SearchResultCollectionViewCell.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8C081B5FA80487DFFB1F44C2 /* Pods_Naver_Shopping.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Naver_Shopping.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB16776222508E0F00399B4D /* ResultDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultDetailViewController.swift; sourceTree = "<group>"; };
 		CBB28407224F997A00333684 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		CBB28409224FA6C100333684 /* SearchResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -42,6 +44,8 @@
 		CBDCB722224CB8880030F6B4 /* NaverAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverAPI.swift; sourceTree = "<group>"; };
 		CBDCB727224CCBEA0030F6B4 /* Shopping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shopping.swift; sourceTree = "<group>"; };
 		CBDCB729224CCF5D0030F6B4 /* ShoppingStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingStore.swift; sourceTree = "<group>"; };
+		D726B62154A9F3215318881F /* Pods-Naver_Shopping.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Naver_Shopping.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Naver_Shopping/Pods-Naver_Shopping.debug.xcconfig"; sourceTree = "<group>"; };
+		F2B5FA893D48633693C02F8E /* Pods-Naver_Shopping.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Naver_Shopping.release.xcconfig"; path = "Pods/Target Support Files/Pods-Naver_Shopping/Pods-Naver_Shopping.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,12 +53,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0366A542DEE86974CB45AAB9 /* Pods_Naver_Shopping.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7AEADE747B6377CAD8FC94A1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D726B62154A9F3215318881F /* Pods-Naver_Shopping.debug.xcconfig */,
+				F2B5FA893D48633693C02F8E /* Pods-Naver_Shopping.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		7BCEB122F97F9C91D0D363A0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8C081B5FA80487DFFB1F44C2 /* Pods_Naver_Shopping.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		CB16776122508DB800399B4D /* ResultDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -87,6 +109,8 @@
 			children = (
 				CBDCB6FC224CA1B50030F6B4 /* Naver_Shopping */,
 				CBDCB6FB224CA1B50030F6B4 /* Products */,
+				7AEADE747B6377CAD8FC94A1 /* Pods */,
+				7BCEB122F97F9C91D0D363A0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -173,9 +197,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CBDCB70C224CA1B70030F6B4 /* Build configuration list for PBXNativeTarget "Naver_Shopping" */;
 			buildPhases = (
+				D47F38AF0501A0F397A3FBC6 /* [CP] Check Pods Manifest.lock */,
 				CBDCB6F6224CA1B50030F6B4 /* Sources */,
 				CBDCB6F7224CA1B50030F6B4 /* Frameworks */,
 				CBDCB6F8224CA1B50030F6B4 /* Resources */,
+				537836F45DD73D4F1C369FCB /* [CP] Embed Pods Frameworks */,
+				DA98A67357F1D5DA989C7713 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -232,6 +259,60 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		537836F45DD73D4F1C369FCB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Naver_Shopping/Pods-Naver_Shopping-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Naver_Shopping/Pods-Naver_Shopping-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D47F38AF0501A0F397A3FBC6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Naver_Shopping-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DA98A67357F1D5DA989C7713 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Naver_Shopping/Pods-Naver_Shopping-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		CBDCB6F6224CA1B50030F6B4 /* Sources */ = {
@@ -392,6 +473,7 @@
 		};
 		CBDCB70D224CA1B70030F6B4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D726B62154A9F3215318881F /* Pods-Naver_Shopping.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -412,6 +494,7 @@
 		};
 		CBDCB70E224CA1B70030F6B4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F2B5FA893D48633693C02F8E /* Pods-Naver_Shopping.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
