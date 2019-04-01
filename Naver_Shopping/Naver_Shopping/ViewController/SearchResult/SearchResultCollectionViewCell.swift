@@ -27,7 +27,6 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        itemImage.image = nil
         titleLabel.text = nil
         lpriceLabel.text = nil
         
@@ -36,7 +35,6 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         // reusing될 때 초기화
-        itemImage.image = nil
         titleLabel.text = nil
         lpriceLabel.text = nil
     }

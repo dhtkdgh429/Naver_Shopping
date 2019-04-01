@@ -63,13 +63,8 @@ class SearchResultViewController: UIViewController {
         self.setBackButton()
         
         // search TextField
-        textField.layer.borderColor = ColorUtil.getCustomGreen().cgColor
-        textField.layer.borderWidth = 1.0
-        textField.layer.cornerRadius = 3
-        textField.backgroundColor = UIColor.white
-        textField.delegate = self
         textField.alpha = 0
-        textField.clearButtonMode = .whileEditing
+        textField.delegate = self
         textFieldConst.constant = -60
         // bgButton set
         bgButton.backgroundColor = UIColor.init(red: 0.9, green: 0.9, blue: 0.9, alpha: 0.7)
@@ -87,20 +82,20 @@ class SearchResultViewController: UIViewController {
     }
     
     @IBAction func touchedSearchBarButton(_ sender: UIBarButtonItem) {
-        self.animatedTextfield()
+        self.animatedTextfield(isShow: self.isShow)
         
     }
     
     @IBAction func touchedBgButton(_ sender: Any) {
         self.textField.resignFirstResponder()
-        self.animatedTextfield()
+        self.animatedTextfield(isShow: true)
     }
     
-    private func animatedTextfield() {
+    private func animatedTextfield(isShow: Bool) {
         
         UIView.animate(withDuration: 0.3) {
             
-            if self.isShow {
+            if isShow {
                 self.textFieldConst.constant = -60
                 self.textField.alpha = 0
                 self.bgButton.isHidden = true
@@ -138,9 +133,8 @@ extension SearchResultViewController : UICollectionViewDelegate, UICollectionVie
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! SearchResultCollectionViewCell
         
         let item = shoppingArray[indexPath.row]
-        
-        cell.setImage(item.image!)
         cell.setLabel(item: item)
+        cell.setImage(item.image!)
         return cell
     }
     
@@ -198,13 +192,16 @@ extension SearchResultViewController : UITextFieldDelegate {
                     DispatchQueue.main.async {
                         self.textField.resignFirstResponder()
                         self.collectionView.reloadData()
-                        self.animatedTextfield()
-                        self.shopping.recentFind.insert(textField.text!, at: 0)
+                        self.animatedTextfield(isShow: true)
+                        // 검색어 저장 메소드로 수정.
+                        self.shopping.setRecentFindData(findString: textField.text!)
                         self.navigationItem.title = self.shopping.recentFind.first
                         textField.text = ""
                     }
                 case let .Failure(error):
                     print("Result Fetching Error \(error)")
+                    self.textField.resignFirstResponder()
+                    self.animatedTextfield(isShow: true)
                 }
             }
             return true

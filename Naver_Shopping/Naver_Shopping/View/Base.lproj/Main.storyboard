@@ -18,8 +18,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tzy-ef-elA">
+                                <rect key="frame" x="137" y="338" width="140" height="71.666666666666686"/>
+                                <string key="text">Naver
+Shopping</string>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="30"/>
+                                <color key="textColor" red="0.13" green="0.91232341610000001" blue="0.16285851879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="44e-YQ-8xr">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <connections>
+                                    <action selector="touchedBgButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="acc-Z2-qwN"/>
+                                </connections>
+                            </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="검색어 또는 URL 입력" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rOQ-EA-jOv" customClass="SearchTextField" customModule="Naver_Shopping" customModuleProvider="target">
-                                <rect key="frame" x="30" y="450" width="354" height="50"/>
+                                <rect key="frame" x="30" y="423" width="354" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="vKF-wp-fpX"/>
                                 </constraints>
@@ -27,34 +41,45 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="go"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tzy-ef-elA">
-                                <rect key="frame" x="137" y="358.33333333333331" width="140" height="71.666666666666686"/>
-                                <string key="text">Naver
-Shopping</string>
-                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="30"/>
-                                <color key="textColor" red="0.13" green="0.91232341610000001" blue="0.16285851879999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="plC-Hy-qKh">
+                                <rect key="frame" x="30" y="478" width="354" height="250"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="3jG-Ey-M08"/>
+                                </constraints>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="rOQ-EA-jOv" firstAttribute="top" secondItem="tzy-ef-elA" secondAttribute="bottom" constant="20" id="2l1-yH-nHF"/>
-                            <constraint firstItem="rOQ-EA-jOv" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="8pe-4c-jfM"/>
+                            <constraint firstItem="rOQ-EA-jOv" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" priority="999" constant="20" id="3LZ-yW-QE8"/>
+                            <constraint firstItem="plC-Hy-qKh" firstAttribute="trailing" secondItem="rOQ-EA-jOv" secondAttribute="trailing" id="58i-rq-4RT"/>
+                            <constraint firstItem="rOQ-EA-jOv" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="8pe-4c-jfM"/>
                             <constraint firstItem="tzy-ef-elA" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="CLw-mu-1WC"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rOQ-EA-jOv" secondAttribute="trailing" constant="30" id="RcA-nM-DcJ"/>
+                            <constraint firstItem="44e-YQ-8xr" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="U7s-ie-8xq"/>
+                            <constraint firstItem="plC-Hy-qKh" firstAttribute="leading" secondItem="rOQ-EA-jOv" secondAttribute="leading" id="XlP-zH-1i3"/>
+                            <constraint firstAttribute="bottom" secondItem="44e-YQ-8xr" secondAttribute="bottom" id="gL7-n0-Q4k"/>
+                            <constraint firstItem="plC-Hy-qKh" firstAttribute="top" secondItem="rOQ-EA-jOv" secondAttribute="bottom" constant="5" id="i1s-AS-Jg5"/>
+                            <constraint firstItem="tzy-ef-elA" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="250" id="kF7-rD-Ieb"/>
+                            <constraint firstItem="44e-YQ-8xr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="oKm-Zc-41d"/>
                             <constraint firstItem="rOQ-EA-jOv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="ydH-61-ecc"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="44e-YQ-8xr" secondAttribute="trailing" id="z1h-Ez-itD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="uOE-3n-r8g"/>
                     <connections>
+                        <outlet property="bgButton" destination="44e-YQ-8xr" id="U3d-Yc-1El"/>
+                        <outlet property="tableView" destination="plC-Hy-qKh" id="zVS-II-xhV"/>
+                        <outlet property="tableViewHeightConst" destination="3jG-Ey-M08" id="9md-6f-s88"/>
                         <outlet property="textField" destination="rOQ-EA-jOv" id="yM5-bw-Soe"/>
+                        <outlet property="textFieldConst" destination="8pe-4c-jfM" id="9tl-1t-EVJ"/>
                         <segue destination="UVs-Y5-lh7" kind="show" identifier="ShowSearch" id="SbN-7u-SkK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="992.79999999999995" y="26.53673163418291"/>
+            <point key="canvasLocation" x="992.75362318840587" y="26.116071428571427"/>
         </scene>
         <!--Title-->
         <scene sceneID="lrx-7D-veR">
@@ -92,7 +117,7 @@ Shopping</string>
                                 </cells>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zrw-m4-yWI">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <connections>
                                     <action selector="touchedBgButton:" destination="UVs-Y5-lh7" eventType="touchUpInside" id="zPc-WR-0Gq"/>
                                 </connections>
@@ -117,7 +142,7 @@ Shopping</string>
                             <constraint firstItem="ukS-wF-L9X" firstAttribute="bottom" secondItem="15q-2L-4Ou" secondAttribute="bottom" id="Rat-QX-YGt"/>
                             <constraint firstItem="Zrw-m4-yWI" firstAttribute="leading" secondItem="15q-2L-4Ou" secondAttribute="leading" id="e3f-yi-x97"/>
                             <constraint firstItem="Zrw-m4-yWI" firstAttribute="top" secondItem="15q-2L-4Ou" secondAttribute="top" id="eng-xy-RIP"/>
-                            <constraint firstItem="Zrw-m4-yWI" firstAttribute="bottom" secondItem="15q-2L-4Ou" secondAttribute="bottom" id="hH5-hT-N7a"/>
+                            <constraint firstItem="Zrw-m4-yWI" firstAttribute="bottom" secondItem="g5x-vg-dfV" secondAttribute="bottom" id="hH5-hT-N7a"/>
                             <constraint firstItem="15q-2L-4Ou" firstAttribute="leading" secondItem="ukS-wF-L9X" secondAttribute="leading" id="lCv-i3-lC1"/>
                             <constraint firstItem="mSD-C3-Dc5" firstAttribute="top" secondItem="ukS-wF-L9X" secondAttribute="top" constant="-60" id="o2e-WP-rBl"/>
                         </constraints>

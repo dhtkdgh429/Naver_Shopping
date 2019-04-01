@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0366A542DEE86974CB45AAB9 /* Pods_Naver_Shopping.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C081B5FA80487DFFB1F44C2 /* Pods_Naver_Shopping.framework */; };
 		CB16776322508E0F00399B4D /* ResultDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB16776222508E0F00399B4D /* ResultDetailViewController.swift */; };
+		CB1912C6225214700056A68B /* RecentFindTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1912C4225214700056A68B /* RecentFindTableViewCell.swift */; };
+		CB1912C7225214700056A68B /* RecentFindTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB1912C5225214700056A68B /* RecentFindTableViewCell.xib */; };
 		CBB28408224F997A00333684 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB28407224F997A00333684 /* SearchResultViewController.swift */; };
 		CBB2840B224FA6C100333684 /* SearchResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB28409224FA6C100333684 /* SearchResultCollectionViewCell.swift */; };
 		CBB2840C224FA6C100333684 /* SearchResultCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBB2840A224FA6C100333684 /* SearchResultCollectionViewCell.xib */; };
@@ -28,6 +30,8 @@
 /* Begin PBXFileReference section */
 		8C081B5FA80487DFFB1F44C2 /* Pods_Naver_Shopping.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Naver_Shopping.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB16776222508E0F00399B4D /* ResultDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultDetailViewController.swift; sourceTree = "<group>"; };
+		CB1912C4225214700056A68B /* RecentFindTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentFindTableViewCell.swift; sourceTree = "<group>"; };
+		CB1912C5225214700056A68B /* RecentFindTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecentFindTableViewCell.xib; sourceTree = "<group>"; };
 		CBB28407224F997A00333684 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		CBB28409224FA6C100333684 /* SearchResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCollectionViewCell.swift; sourceTree = "<group>"; };
 		CBB2840A224FA6C100333684 /* SearchResultCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchResultCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -85,6 +89,15 @@
 			path = ResultDetail;
 			sourceTree = "<group>";
 		};
+		CB1912C8225214730056A68B /* RecentFind */ = {
+			isa = PBXGroup;
+			children = (
+				CB1912C4225214700056A68B /* RecentFindTableViewCell.swift */,
+				CB1912C5225214700056A68B /* RecentFindTableViewCell.xib */,
+			);
+			path = RecentFind;
+			sourceTree = "<group>";
+		};
 		CBB28405224F994E00333684 /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -139,6 +152,7 @@
 		CBDCB711224CA8ED0030F6B4 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CB1912C8225214730056A68B /* RecentFind */,
 				CBDCB701224CA1B50030F6B4 /* Main.storyboard */,
 				CBDCB706224CA1B60030F6B4 /* LaunchScreen.storyboard */,
 			);
@@ -251,6 +265,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB1912C7225214700056A68B /* RecentFindTableViewCell.xib in Resources */,
 				CBDCB708224CA1B60030F6B4 /* LaunchScreen.storyboard in Resources */,
 				CBDCB705224CA1B60030F6B4 /* Assets.xcassets in Resources */,
 				CBDCB703224CA1B50030F6B4 /* Main.storyboard in Resources */,
@@ -324,6 +339,7 @@
 				CBDCB710224CA8E90030F6B4 /* MainSearchViewController.swift in Sources */,
 				CB16776322508E0F00399B4D /* ResultDetailViewController.swift in Sources */,
 				CBDCB72A224CCF5D0030F6B4 /* ShoppingStore.swift in Sources */,
+				CB1912C6225214700056A68B /* RecentFindTableViewCell.swift in Sources */,
 				CBB2840E224FAAED00333684 /* GlobalUtil.swift in Sources */,
 				CBDCB723224CB8880030F6B4 /* NaverAPI.swift in Sources */,
 				CBDCB71E224CB3AB0030F6B4 /* SearchTextField.swift in Sources */,
