@@ -10,7 +10,8 @@ import UIKit
 
 class ShoppingStore {
     
-    var findString: String?
+    // 최근 검색어 배열.
+    var recentFind = [String]()
     
     // URLSession config...
     let session: URLSession = {

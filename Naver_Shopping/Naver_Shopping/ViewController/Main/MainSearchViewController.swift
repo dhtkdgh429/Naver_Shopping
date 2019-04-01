@@ -49,7 +49,9 @@ extension MainSearchViewController: UITextFieldDelegate {
                     
                     DispatchQueue.main.async {
                         self.textField.resignFirstResponder()
-                        self.shopping.findString = textField.text!
+                        // 최근 입력한 검색어가 상단에 뜨도록.
+                        self.shopping.recentFind.insert(textField.text!, at: 0)
+                        textField.text = ""
                         self.performSegue(withIdentifier: "ShowSearch", sender: self)
                     }
                 case let .Failure(error):

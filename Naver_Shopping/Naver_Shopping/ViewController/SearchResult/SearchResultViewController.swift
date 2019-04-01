@@ -19,7 +19,7 @@ class SearchResultViewController: UIViewController {
     
     var shopping: ShoppingStore! {
         didSet {
-            navigationItem.title = shopping.findString
+            navigationItem.title = shopping.recentFind.first
         }
     }
     var shoppingArray: [ShoppingItem]!
@@ -69,6 +69,7 @@ class SearchResultViewController: UIViewController {
         textField.backgroundColor = UIColor.white
         textField.delegate = self
         textField.alpha = 0
+        textField.clearButtonMode = .whileEditing
         textFieldConst.constant = -60
         // bgButton set
         bgButton.backgroundColor = UIColor.init(red: 0.9, green: 0.9, blue: 0.9, alpha: 0.7)
@@ -166,7 +167,7 @@ extension SearchResultViewController : UICollectionViewDelegate, UICollectionVie
         // 페이지 시작 지점 : 현재 데이터 개수의 + 1 위치...
         let startValue = String(self.shoppingArray.count + 1)
         let startParameter = ["start":startValue]
-        self.shopping.fetchShoppingData(findString: self.shopping.findString!, parameters: startParameter) { (shoppingResult) in
+        self.shopping.fetchShoppingData(findString: self.shopping.recentFind.first!, parameters: startParameter) { (shoppingResult) in
             switch shoppingResult {
             case let .Success(shopping):
                 print("More Shopping data : \(shopping.count)")
@@ -198,13 +199,14 @@ extension SearchResultViewController : UITextFieldDelegate {
                         self.textField.resignFirstResponder()
                         self.collectionView.reloadData()
                         self.animatedTextfield()
-                        
+                        self.shopping.recentFind.insert(textField.text!, at: 0)
+                        self.navigationItem.title = self.shopping.recentFind.first
+                        textField.text = ""
                     }
                 case let .Failure(error):
                     print("Result Fetching Error \(error)")
                 }
             }
-            
             return true
         } else {
             return false
