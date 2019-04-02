@@ -53,12 +53,9 @@ class MainSearchViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
         textField.text = ""
         
-        // find tableView data set
-        tableViewHeightConst.constant = getTableViewHeight()
-        tableView.reloadData()
+        updateTableView()
         
         // image cache clear
         cache.clearMemoryCache()
@@ -75,6 +72,12 @@ class MainSearchViewController: UIViewController {
     @IBAction func touchedBgButton(_ sender: Any) {
         self.textField.resignFirstResponder()
         self.animatedTextfield(isShow: isShow)
+    }
+    
+    private func updateTableView() {
+        // find tableView data set
+        tableViewHeightConst.constant = getTableViewHeight()
+        tableView.reloadData()
     }
     
     private func getTableViewHeight() -> CGFloat {
@@ -164,7 +167,8 @@ extension MainSearchViewController : UITableViewDelegate {
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: RecentFindHeaderView.reuseIdentifer) as? RecentFindHeaderView else {
             return nil
         }
-        header.customLabel.text = "최근 검색어"
+        
+        header.delegate = self
         
         return header
     }
@@ -184,4 +188,17 @@ extension MainSearchViewController : UITableViewDelegate {
         let findString = cell.findLabel.text
         self.pushSearchFindString(text: findString!)
     }
+}
+
+
+// MARK: - RecentFindHeaderViewDelegate
+// 최근 검색어 헤더 delegate
+extension MainSearchViewController: RecentFindHeaderViewDelegate {
+    
+    func clearRecentFindData() {
+        print("clear!!!")
+        self.shopping.recentFind.removeAll()
+        self.updateTableView()
+    }
+    
 }
