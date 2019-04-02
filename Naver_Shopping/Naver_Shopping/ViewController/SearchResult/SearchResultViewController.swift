@@ -12,12 +12,16 @@ class SearchResultViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
-    
     @IBOutlet weak var textField: SearchTextField!
     @IBOutlet weak var textFieldConst: NSLayoutConstraint!
     @IBOutlet weak var bgButton: UIButton!
     @IBOutlet weak var tableView: RecentFindTableView!
     @IBOutlet weak var tableViewHeightConst: NSLayoutConstraint!
+    @IBOutlet weak var filterItem: UIBarButtonItem!
+    private var filterView: FilterView!
+    private var filterViewTopConst: NSLayoutConstraint!
+//    @IBOutlet weak var filterViewHeightConst: NSLayoutConstraint!
+
     
     let cellHeight:CGFloat = 35.0
     
@@ -46,7 +50,8 @@ class SearchResultViewController: UIViewController {
     }
     // search textfield 관련
     var isShow: Bool = false
-    
+    // Filter 관련.
+    var isFilterShow: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,8 +76,10 @@ class SearchResultViewController: UIViewController {
         bgButton.backgroundColor = UIColor.init(red: 0.9, green: 0.9, blue: 0.9, alpha: 0.7)
         bgButton.isHidden = true
         
+        filterItem.tintColor = ColorUtil.getCustomGreen()
         tableView.delegate = self
         tableView.dataSource = shopping
+        setFilterView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,6 +89,39 @@ class SearchResultViewController: UIViewController {
         self.setBackButton()
         
         updateTableView()
+    }
+    
+    // 필터 뷰 세팅.
+    private func setFilterView() {
+        
+        filterView = FilterView.initFilterView()
+        view.addSubview(filterView)
+        filterView.delegate = self
+        filterView.translatesAutoresizingMaskIntoConstraints = false
+        
+        // default view setting.
+        filterViewTopConst = filterView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -filterView.frame.height)
+        filterViewTopConst.isActive = true
+        filterView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        filterView.widthAnchor.constraint(equalToConstant: 150).isActive = true
+        filterView.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        
+    }
+    
+    private func animateFilterView(isFilterShow: Bool) {
+        self.filterViewTopConst.isActive = false
+        UIView.animate(withDuration: 0.3) {
+            if isFilterShow {
+                self.filterViewTopConst = self.filterView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: -self.filterView.frame.height)
+                self.filterViewTopConst.isActive = true
+                self.isFilterShow = false
+            } else {
+                self.filterViewTopConst = self.filterView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor)
+                self.filterViewTopConst.isActive = true
+                self.isFilterShow = true
+            }
+            self.view.layoutIfNeeded()
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -97,6 +137,11 @@ class SearchResultViewController: UIViewController {
         self.animatedTextfield(isShow: self.isShow)
         
     }
+    
+    @IBAction func touchedFilterBarButton(_ sender: UIBarButtonItem) {
+        animateFilterView(isFilterShow: self.isFilterShow)
+    }
+    
     
     @IBAction func touchedBgButton(_ sender: Any) {
         self.textField.resignFirstResponder()
@@ -160,8 +205,8 @@ class SearchResultViewController: UIViewController {
         }
     }
     
-    private func pushSearchFindString(text: String) {
-        shopping.fetchShoppingData(findString: text, parameters: nil) { (shoppingResult) in
+    private func pushSearchFindString(text: String, parameters: [String:String]?) {
+        shopping.fetchShoppingData(findString: text, parameters: parameters) { (shoppingResult) in
             switch shoppingResult {
             case let .Success(shopping):
                 print("Result Shopping data : \(shopping.count)")
@@ -232,7 +277,7 @@ extension SearchResultViewController : UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         if textField.text!.count > 0 {
-            pushSearchFindString(text: textField.text!)
+            pushSearchFindString(text: textField.text!, parameters: nil)
             return true
         } else {
             return false
@@ -267,7 +312,7 @@ extension SearchResultViewController : UITableViewDelegate {
         let cell = tableView.cellForRow(at: indexPath) as! RecentFindTableViewCell
         
         let findString = cell.findLabel.text
-        self.pushSearchFindString(text: findString!)
+        self.pushSearchFindString(text: findString!, parameters: nil)
     }
 }
 
@@ -283,4 +328,13 @@ extension SearchResultViewController : RecentFindHeaderViewDelegate {
         
     }
     
+}
+
+// MARK: - FilterViewDelegate
+// 필터 delegate
+extension SearchResultViewController : FilterViewDelegate {
+    func touchedFilterButton(type: FilterType) {
+        self.pushSearchFindString(text: self.shopping.recentFind.first!, parameters: ["sort":type.rawValue])
+        self.animateFilterView(isFilterShow: true)
+    }
 }

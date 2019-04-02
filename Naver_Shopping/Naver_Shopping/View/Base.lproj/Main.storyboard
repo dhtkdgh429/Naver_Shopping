@@ -160,17 +160,26 @@ Shopping</string>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Title" id="hOh-VA-aNo">
-                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="R0J-MY-c1p">
-                            <color key="tintColor" red="0.1298694349" green="0.91232341610000001" blue="0.16285851879999999" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <action selector="touchedSearchBarButton:" destination="UVs-Y5-lh7" id="IO3-o0-DFW"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="search" id="R0J-MY-c1p">
+                                <color key="tintColor" red="0.1298694349" green="0.91232341610000001" blue="0.16285851879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="touchedSearchBarButton:" destination="UVs-Y5-lh7" id="IO3-o0-DFW"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Item" image="filter" id="SAo-HO-pRA">
+                                <inset key="imageInsets" minX="40" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <connections>
+                                    <action selector="touchedFilterBarButton:" destination="UVs-Y5-lh7" id="I6q-QD-cK6"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="bgButton" destination="Zrw-m4-yWI" id="Jrc-t6-WmD"/>
                         <outlet property="collectionView" destination="15q-2L-4Ou" id="q5u-vm-qsq"/>
+                        <outlet property="filterItem" destination="SAo-HO-pRA" id="fP8-NA-uCl"/>
                         <outlet property="indicator" destination="fIS-pB-I7p" id="PKH-YG-FOd"/>
                         <outlet property="tableView" destination="8Jq-Fr-p05" id="k1m-6s-PH2"/>
                         <outlet property="tableViewHeightConst" destination="e5R-C6-Vzc" id="BGm-Wr-vTS"/>
@@ -235,4 +244,7 @@ Shopping</string>
             <point key="canvasLocation" x="53.600000000000001" y="26.53673163418291"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="filter" width="60" height="60"/>
+    </resources>
 </document>

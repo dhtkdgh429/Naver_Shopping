@@ -13,6 +13,8 @@
 		CB1912C7225214700056A68B /* RecentFindTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB1912C5225214700056A68B /* RecentFindTableViewCell.xib */; };
 		CB4240982252E94E00606B35 /* RecentFindHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4240972252E94E00606B35 /* RecentFindHeaderView.swift */; };
 		CB42409C22531B3800606B35 /* RecentFindTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB42409B22531B3800606B35 /* RecentFindTableView.swift */; };
+		CB42409F22532E7000606B35 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB42409E22532E7000606B35 /* FilterView.swift */; };
+		CB4240A122532E7A00606B35 /* FilterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB4240A022532E7A00606B35 /* FilterView.xib */; };
 		CBB28408224F997A00333684 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB28407224F997A00333684 /* SearchResultViewController.swift */; };
 		CBB2840B224FA6C100333684 /* SearchResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB28409224FA6C100333684 /* SearchResultCollectionViewCell.swift */; };
 		CBB2840C224FA6C100333684 /* SearchResultCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBB2840A224FA6C100333684 /* SearchResultCollectionViewCell.xib */; };
@@ -36,6 +38,8 @@
 		CB1912C5225214700056A68B /* RecentFindTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecentFindTableViewCell.xib; sourceTree = "<group>"; };
 		CB4240972252E94E00606B35 /* RecentFindHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentFindHeaderView.swift; sourceTree = "<group>"; };
 		CB42409B22531B3800606B35 /* RecentFindTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentFindTableView.swift; sourceTree = "<group>"; };
+		CB42409E22532E7000606B35 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
+		CB4240A022532E7A00606B35 /* FilterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterView.xib; sourceTree = "<group>"; };
 		CBB28407224F997A00333684 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		CBB28409224FA6C100333684 /* SearchResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCollectionViewCell.swift; sourceTree = "<group>"; };
 		CBB2840A224FA6C100333684 /* SearchResultCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchResultCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -104,6 +108,15 @@
 			path = RecentFind;
 			sourceTree = "<group>";
 		};
+		CB42409D22532E5E00606B35 /* FilterView */ = {
+			isa = PBXGroup;
+			children = (
+				CB42409E22532E7000606B35 /* FilterView.swift */,
+				CB4240A022532E7A00606B35 /* FilterView.xib */,
+			);
+			path = FilterView;
+			sourceTree = "<group>";
+		};
 		CBB28405224F994E00333684 /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -158,6 +171,7 @@
 		CBDCB711224CA8ED0030F6B4 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CB42409D22532E5E00606B35 /* FilterView */,
 				CB1912C8225214730056A68B /* RecentFind */,
 				CBDCB701224CA1B50030F6B4 /* Main.storyboard */,
 				CBDCB706224CA1B60030F6B4 /* LaunchScreen.storyboard */,
@@ -273,6 +287,7 @@
 			files = (
 				CB1912C7225214700056A68B /* RecentFindTableViewCell.xib in Resources */,
 				CBDCB708224CA1B60030F6B4 /* LaunchScreen.storyboard in Resources */,
+				CB4240A122532E7A00606B35 /* FilterView.xib in Resources */,
 				CBDCB705224CA1B60030F6B4 /* Assets.xcassets in Resources */,
 				CBDCB703224CA1B50030F6B4 /* Main.storyboard in Resources */,
 				CBB2840C224FA6C100333684 /* SearchResultCollectionViewCell.xib in Resources */,
@@ -353,6 +368,7 @@
 				CBB28408224F997A00333684 /* SearchResultViewController.swift in Sources */,
 				CBB2840B224FA6C100333684 /* SearchResultCollectionViewCell.swift in Sources */,
 				CB4240982252E94E00606B35 /* RecentFindHeaderView.swift in Sources */,
+				CB42409F22532E7000606B35 /* FilterView.swift in Sources */,
 				CBDCB720224CB47C0030F6B4 /* ColorUtil.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
