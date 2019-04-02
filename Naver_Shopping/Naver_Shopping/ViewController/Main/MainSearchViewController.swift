@@ -42,11 +42,13 @@ class MainSearchViewController: UIViewController {
         // tableView set
         tableView.backgroundColor = UIColor.clear
         tableView.layer.cornerRadius = 3
-        tableView.layer.borderColor = UIColor.init(red: 0.7, green: 0.7, blue: 0.7, alpha: 1.0).cgColor
+        tableView.layer.borderColor = UIColor.init(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0).cgColor
         tableView.layer.borderWidth = 1.0
-        tableView.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 17)
+        tableView.separatorStyle = .none
+        tableView.isHidden = true
         tableView.delegate = self
         tableView.dataSource = shopping
+        tableView.register(RecentFindHeaderView.self, forHeaderFooterViewReuseIdentifier: RecentFindHeaderView.reuseIdentifer)
         tableView.register(UINib.init(nibName: "RecentFindTableViewCell", bundle: nil), forCellReuseIdentifier: "RecentFindTableViewCell")
     }
     
@@ -77,9 +79,14 @@ class MainSearchViewController: UIViewController {
     
     private func getTableViewHeight() -> CGFloat {
         let findCount = CGFloat(self.shopping.recentFind.count)
-        // 개수 * 60(cell높이)
-        let height = findCount * cellHeight
-        return height
+        // 개수 * 60(cell높이) + header높이
+        var height: CGFloat?
+        if shopping.recentFind.count > 0 {
+            height = findCount * cellHeight + cellHeight
+        } else {
+            height = findCount * cellHeight
+        }
+        return height!
     }
     
     private func animatedTextfield(isShow: Bool) {
@@ -90,10 +97,12 @@ class MainSearchViewController: UIViewController {
                 self.textFieldConst = self.textField.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
                 self.textFieldConst.isActive = true
                 self.bgButton.isHidden = true
+                self.tableView.isHidden = true
                 self.isShow = false
             } else {
                 self.textFieldConst.isActive = false
                 self.bgButton.isHidden = false
+                self.tableView.isHidden = false
                 self.isShow = true
             }
             self.view.layoutIfNeeded()
@@ -150,6 +159,19 @@ extension MainSearchViewController: UITextFieldDelegate {
 
 // MARK: - UITableViewDelegate
 extension MainSearchViewController : UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: RecentFindHeaderView.reuseIdentifer) as? RecentFindHeaderView else {
+            return nil
+        }
+        header.customLabel.text = "최근 검색어"
+        
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return cellHeight
+    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return cellHeight

@@ -20,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let rootVC = window!.rootViewController as! UINavigationController
         let mainSearchVC = rootVC.topViewController as! MainSearchViewController
         mainSearchVC.shopping = ShoppingStore()
+        // 최근 검색어 불어오기.
+        mainSearchVC.shopping.getRecentUserData()
         
         return true
     }

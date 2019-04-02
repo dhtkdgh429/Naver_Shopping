@@ -13,6 +13,18 @@ class ShoppingStore: NSObject {
     // 최근 검색어 배열.
     var recentFind = [String]()
     
+    let defaults = UserDefaults.standard
+    
+    private func setRecentUserData() {
+        defaults.set(recentFind, forKey: "recentFind")
+    }
+    
+    func getRecentUserData() {
+        if let findArray = defaults.array(forKey: "recentFind") as? [String] {
+            recentFind = findArray
+        }
+    }
+    
     func setRecentFindData(findString: String) {
         
         // 중복 제거 검사.
@@ -30,6 +42,8 @@ class ShoppingStore: NSObject {
                 recentFind.remove(at: index)
             }
         }
+        // userdefaults에 저장.
+        setRecentUserData()
     }
     
     // URLSession config...
