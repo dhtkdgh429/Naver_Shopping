@@ -16,6 +16,10 @@ class SearchResultViewController: UIViewController {
     @IBOutlet weak var textField: SearchTextField!
     @IBOutlet weak var textFieldConst: NSLayoutConstraint!
     @IBOutlet weak var bgButton: UIButton!
+    @IBOutlet weak var tableView: RecentFindTableView!
+    @IBOutlet weak var tableViewHeightConst: NSLayoutConstraint!
+    
+    let cellHeight:CGFloat = 35.0
     
     var shopping: ShoppingStore! {
         didSet {
@@ -59,9 +63,6 @@ class SearchResultViewController: UIViewController {
             print("shopping nil!!!!")
         }
         
-        // BackBarItem
-        self.setBackButton()
-        
         // search TextField
         textField.alpha = 0
         textField.delegate = self
@@ -70,6 +71,17 @@ class SearchResultViewController: UIViewController {
         bgButton.backgroundColor = UIColor.init(red: 0.9, green: 0.9, blue: 0.9, alpha: 0.7)
         bgButton.isHidden = true
         
+        tableView.delegate = self
+        tableView.dataSource = shopping
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // BackBarItem
+        self.setBackButton()
+        
+        updateTableView()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -93,23 +105,85 @@ class SearchResultViewController: UIViewController {
     
     private func animatedTextfield(isShow: Bool) {
         
+        if !isShow {
+            self.textField.becomeFirstResponder()
+        } else {
+            self.textField.resignFirstResponder()
+        }
+        
         UIView.animate(withDuration: 0.3) {
             
             if isShow {
                 self.textFieldConst.constant = -60
                 self.textField.alpha = 0
                 self.bgButton.isHidden = true
+                self.tableView.isHidden = true
                 self.isShow = false
             } else {
                 self.textFieldConst.constant = 20
                 self.textField.alpha = 1
                 self.bgButton.isHidden = false
+                self.tableView.isHidden = false
                 self.isShow = true
             }
             self.view.layoutIfNeeded()
         }
     }
     
+    private func updateTableView() {
+        // find tableView data set
+        tableViewHeightConst.constant = tableView.getTableViewHeight(count: shopping.recentFind.count)
+        tableView.reloadData()
+    }
+    
+    private func reloadMoreData() {
+        // startValue 최대 값이 1000이므로, 데이터 갯수가 998보다 많으면 return시킴.
+        if self.shoppingArray.count > 998 {
+            return
+        }
+        
+        // 페이지 시작 지점 : 현재 데이터 개수의 + 1 위치...
+        let startValue = String(self.shoppingArray.count + 1)
+        let startParameter = ["start":startValue]
+        self.shopping.fetchShoppingData(findString: self.shopping.recentFind.first!, parameters: startParameter) { (shoppingResult) in
+            switch shoppingResult {
+            case let .Success(shopping):
+                print("More Shopping data : \(shopping.count)")
+                self.shoppingArray.append(contentsOf: shopping)
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
+                self.isLoading = false
+            case let .Failure(error):
+                print("More Fetching Error \(error)")
+            }
+        }
+    }
+    
+    private func pushSearchFindString(text: String) {
+        shopping.fetchShoppingData(findString: text, parameters: nil) { (shoppingResult) in
+            switch shoppingResult {
+            case let .Success(shopping):
+                print("Result Shopping data : \(shopping.count)")
+                self.shoppingArray = shopping
+                
+                DispatchQueue.main.async {
+                    self.textField.resignFirstResponder()
+                    self.collectionView.reloadData()
+                    self.animatedTextfield(isShow: true)
+                    // 검색어 저장 메소드로 수정.
+                    self.shopping.setRecentFindData(findString: text)
+                    self.navigationItem.title = self.shopping.recentFind.first
+                    self.textField.text = ""
+                    self.updateTableView()
+                }
+            case let .Failure(error):
+                print("Result Fetching Error \(error)")
+                self.textField.resignFirstResponder()
+                self.animatedTextfield(isShow: true)
+            }
+        }
+    }
     
 }
 
@@ -151,31 +225,6 @@ extension SearchResultViewController : UICollectionViewDelegate, UICollectionVie
             self.moreCount += 1
         }
     }
-    
-    private func reloadMoreData() {
-        // startValue 최대 값이 1000이므로, 데이터 갯수가 998보다 많으면 return시킴.
-        if self.shoppingArray.count > 998 {
-            return
-        }
-        
-        // 페이지 시작 지점 : 현재 데이터 개수의 + 1 위치...
-        let startValue = String(self.shoppingArray.count + 1)
-        let startParameter = ["start":startValue]
-        self.shopping.fetchShoppingData(findString: self.shopping.recentFind.first!, parameters: startParameter) { (shoppingResult) in
-            switch shoppingResult {
-            case let .Success(shopping):
-                print("More Shopping data : \(shopping.count)")
-                self.shoppingArray.append(contentsOf: shopping)
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                }
-                self.isLoading = false
-            case let .Failure(error):
-                print("More Fetching Error \(error)")
-            }
-        }
-    }
-    
 }
 
 extension SearchResultViewController : UITextFieldDelegate {
@@ -183,31 +232,55 @@ extension SearchResultViewController : UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         if textField.text!.count > 0 {
-            shopping.fetchShoppingData(findString: textField.text!, parameters: nil) { (shoppingResult) in
-                switch shoppingResult {
-                case let .Success(shopping):
-                    print("Result Shopping data : \(shopping.count)")
-                    self.shoppingArray = shopping
-                    
-                    DispatchQueue.main.async {
-                        self.textField.resignFirstResponder()
-                        self.collectionView.reloadData()
-                        self.animatedTextfield(isShow: true)
-                        // 검색어 저장 메소드로 수정.
-                        self.shopping.setRecentFindData(findString: textField.text!)
-                        self.navigationItem.title = self.shopping.recentFind.first
-                        textField.text = ""
-                    }
-                case let .Failure(error):
-                    print("Result Fetching Error \(error)")
-                    self.textField.resignFirstResponder()
-                    self.animatedTextfield(isShow: true)
-                }
-            }
+            pushSearchFindString(text: textField.text!)
             return true
         } else {
             return false
         }
         
     }
+}
+
+// MARK: - UITableViewDelegate
+extension SearchResultViewController : UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: RecentFindHeaderView.reuseIdentifer) as? RecentFindHeaderView else {
+            return nil
+        }
+        
+        header.delegate = self
+        
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return cellHeight
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return cellHeight
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let cell = tableView.cellForRow(at: indexPath) as! RecentFindTableViewCell
+        
+        let findString = cell.findLabel.text
+        self.pushSearchFindString(text: findString!)
+    }
+}
+
+// MARK: - RecentFindHeaderViewDelegate
+// 최근 검색어 헤더 delegate
+extension SearchResultViewController : RecentFindHeaderViewDelegate {
+    
+    func clearRecentFindData() {
+        print("clear!!!")
+        self.shopping.recentFind.removeAll()
+        self.shopping.removeRecentUserData()
+        self.updateTableView()
+        
+    }
+    
 }

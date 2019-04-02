@@ -14,11 +14,10 @@ class MainSearchViewController: UIViewController {
     @IBOutlet weak var textField: SearchTextField!
     @IBOutlet weak var textFieldConst: NSLayoutConstraint!
     @IBOutlet weak var bgButton: UIButton!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableView: RecentFindTableView!
     @IBOutlet weak var tableViewHeightConst: NSLayoutConstraint!
     
     let cellHeight:CGFloat = 35.0
-    
     
     var shopping: ShoppingStore!
     var shoppingArray: [ShoppingItem]!
@@ -36,29 +35,21 @@ class MainSearchViewController: UIViewController {
         bgButton.backgroundColor = UIColor.init(red: 0.9, green: 0.9, blue: 0.9, alpha: 0.7)
         bgButton.isHidden = true
         
-        // BackBarItem
-        self.setBackButton()
-        
-        // tableView set
-        tableView.backgroundColor = UIColor.clear
-        tableView.layer.cornerRadius = 3
-        tableView.layer.borderColor = UIColor.init(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0).cgColor
-        tableView.layer.borderWidth = 1.0
-        tableView.separatorStyle = .none
-        tableView.isHidden = true
         tableView.delegate = self
         tableView.dataSource = shopping
-        tableView.register(RecentFindHeaderView.self, forHeaderFooterViewReuseIdentifier: RecentFindHeaderView.reuseIdentifer)
-        tableView.register(UINib.init(nibName: "RecentFindTableViewCell", bundle: nil), forCellReuseIdentifier: "RecentFindTableViewCell")
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        textField.text = ""
         
-        updateTableView()
+        // BackBarItem
+        self.setBackButton()
         
         // image cache clear
         cache.clearMemoryCache()
+        
+        updateTableView()
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -76,20 +67,8 @@ class MainSearchViewController: UIViewController {
     
     private func updateTableView() {
         // find tableView data set
-        tableViewHeightConst.constant = getTableViewHeight()
+        tableViewHeightConst.constant = tableView.getTableViewHeight(count: shopping.recentFind.count)
         tableView.reloadData()
-    }
-    
-    private func getTableViewHeight() -> CGFloat {
-        let findCount = CGFloat(self.shopping.recentFind.count)
-        // 개수 * 60(cell높이) + header높이
-        var height: CGFloat?
-        if shopping.recentFind.count > 0 {
-            height = findCount * cellHeight + cellHeight
-        } else {
-            height = findCount * cellHeight
-        }
-        return height!
     }
     
     private func animatedTextfield(isShow: Bool) {
@@ -112,6 +91,28 @@ class MainSearchViewController: UIViewController {
         }
     }
     
+    private func pushSearchFindString(text: String) {
+        
+        shopping.fetchShoppingData(findString: text, parameters: nil) { (shoppingResult) in
+            switch shoppingResult {
+            case let .Success(shopping):
+                print("Shopping data : \(shopping.count)")
+                self.shoppingArray = shopping
+                DispatchQueue.main.async {
+                    // 검색어 저장 메소드로 수정.
+                    self.shopping.setRecentFindData(findString: text)
+                    self.performSegue(withIdentifier: "ShowSearch", sender: self)
+                    self.textField.resignFirstResponder()
+                    self.animatedTextfield(isShow: true)
+                    self.textField.text = ""
+                    self.updateTableView()
+                }
+            case let .Failure(error):
+                print("Fetching Error \(error)")
+            }
+        }
+    }
+    
 }
 
 extension MainSearchViewController: UITextFieldDelegate {
@@ -127,37 +128,13 @@ extension MainSearchViewController: UITextFieldDelegate {
         
         if textField.text!.count > 0 {
             self.pushSearchFindString(text: textField.text!)
-            self.textField.resignFirstResponder()
-            self.animatedTextfield(isShow: true)
             return true
         } else {
             self.textField.resignFirstResponder()
             self.animatedTextfield(isShow: true)
             return false
         }
-        
     }
-    
-    private func pushSearchFindString(text: String) {
-        
-        shopping.fetchShoppingData(findString: text, parameters: nil) { (shoppingResult) in
-            switch shoppingResult {
-            case let .Success(shopping):
-                print("Shopping data : \(shopping.count)")
-                self.shoppingArray = shopping
-                
-                DispatchQueue.main.async {
-                    // 검색어 저장 메소드로 수정.
-                    self.shopping.setRecentFindData(findString: text)
-                    self.performSegue(withIdentifier: "ShowSearch", sender: self)
-                }
-            case let .Failure(error):
-                print("Fetching Error \(error)")
-            }
-        }
-        
-    }
-    
 }
 
 // MARK: - UITableViewDelegate

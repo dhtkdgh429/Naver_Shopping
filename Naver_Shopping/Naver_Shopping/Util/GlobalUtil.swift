@@ -26,6 +26,13 @@ extension String {
 
 extension UIViewController {
     func setBackButton() {
+        // Main
+        if self is MainSearchViewController {
+            navigationController?.isNavigationBarHidden = true
+        } else {
+            navigationController?.isNavigationBarHidden = false
+        }
+        
         let image = UIImage(named: "back-icon")
         navigationController?.navigationBar.tintColor = ColorUtil.getCustomGreen()
         navigationController?.navigationBar.backIndicatorImage = image
@@ -33,4 +40,5 @@ extension UIViewController {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
     }
+    
 }
