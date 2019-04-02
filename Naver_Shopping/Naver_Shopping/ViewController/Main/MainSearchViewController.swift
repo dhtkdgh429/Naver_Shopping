@@ -198,7 +198,9 @@ extension MainSearchViewController: RecentFindHeaderViewDelegate {
     func clearRecentFindData() {
         print("clear!!!")
         self.shopping.recentFind.removeAll()
+        self.shopping.removeRecentUserData()
         self.updateTableView()
+        
     }
     
 }

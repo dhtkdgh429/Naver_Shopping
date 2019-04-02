@@ -25,6 +25,10 @@ class ShoppingStore: NSObject {
         }
     }
     
+    func removeRecentUserData() {
+        defaults.removeObject(forKey: "recentFind")
+    }
+    
     func setRecentFindData(findString: String) {
         
         // 중복 제거 검사.
