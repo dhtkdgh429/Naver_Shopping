@@ -71,7 +71,10 @@ class SearchResultViewController: UIViewController {
     var isShow: Bool = false
     // Filter 관련.
     var isFilterShow: Bool = false
-    // Category 데이터 호출 성공여부 관련.
+    // Category 관련.
+    var isCategoryData: Bool = false
+    var titleCategoryArray: [String]?
+    // Category 데이터 호출 성공여부.
     var resultCount: Int = 0
     
     override func viewDidLoad() {
@@ -88,6 +91,7 @@ class SearchResultViewController: UIViewController {
         categoryCollectionView.register(UINib.init(nibName: "CategoryCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CategoryCollectionViewCell")
         
         // result collectionView
+        resultCollectionView.showsVerticalScrollIndicator = false
         resultCollectionView.delegate = self
         resultCollectionView.dataSource = self
         
@@ -242,17 +246,40 @@ class SearchResultViewController: UIViewController {
         // 페이지 시작 지점 : 현재 데이터 개수의 + 1 위치...
         let startValue = String(self.shoppingArray.count + 1)
         let startParameter = ["start":startValue]
-        self.shopping.fetchShoppingData(findString: self.shopping.recentFind.first!, parameters: startParameter, type: nil) { (shoppingResult) in
-            switch shoppingResult {
-            case let .Success(shopping):
-                print("More Shopping data : \(shopping.count)")
-                self.shoppingArray.append(contentsOf: shopping)
-                DispatchQueue.main.async {
-                    self.resultCollectionView.reloadData()
+        
+        // 카테고리 조회 시 리로드.
+        if self.isCategoryData {
+            self.shopping.fetchCategorySearchData(findArray: self.titleCategoryArray!, parameters: startParameter, type: CollectionViewType.categoryCollectionView) { (shoppingResult) in
+                switch shoppingResult {
+                case let .Success(shopping):
+                    
+                    print("More Category Data : \(shopping.count)")
+                    self.resultCount += 1
+                    self.categoryArray.append(contentsOf: shopping)
+                    if self.resultCount == self.titleCategoryArray!.count {
+                        self.resultSelectedCategoryItem(true, title: nil)
+                    }
+                    
+                case let .Failure(error):
+                    print("More Fetching Error \(error)")
+                    self.categoryArray.removeAll()
+                    self.resultCount = 0
                 }
-                self.isLoading = false
-            case let .Failure(error):
-                print("More Fetching Error \(error)")
+            }
+            // 검색 시 리로드.
+        } else {
+            self.shopping.fetchShoppingData(findString: self.shopping.recentFind.first!, parameters: startParameter, type: CollectionViewType.resultCollectionView) { (shoppingResult) in
+                switch shoppingResult {
+                case let .Success(shopping):
+                    print("More Shopping data : \(shopping.count)")
+                    self.shoppingArray.append(contentsOf: shopping)
+                    DispatchQueue.main.async {
+                        self.resultCollectionView.reloadData()
+                    }
+                    self.isLoading = false
+                case let .Failure(error):
+                    print("More Fetching Error \(error)")
+                }
             }
         }
     }
@@ -267,6 +294,7 @@ class SearchResultViewController: UIViewController {
                     self.shoppingArray = shopping
                     // 검색어 저장 메소드로 수정.
                     self.shopping.setRecentFindData(findString: text)
+                    self.isCategoryData = false
                 } else {
                     self.categoryArray.append(contentsOf: shopping)
                 }
@@ -301,6 +329,7 @@ class SearchResultViewController: UIViewController {
                 self.categoryArray.append(contentsOf: shopping)
                 if self.resultCount == textArray.count {
                     self.resultSelectedCategoryItem(true, title: title)
+                    self.isCategoryData = true
                 }
             case let .Failure(error):
                 print("Category Fetching Error \(error)")
@@ -310,12 +339,15 @@ class SearchResultViewController: UIViewController {
         }
     }
     
-    private func resultSelectedCategoryItem(_ isSuccess: Bool, title: String) {
+    private func resultSelectedCategoryItem(_ isSuccess: Bool, title: String?) {
         // 데이터 호출 성공 시, 업데이트.
         if isSuccess {
             DispatchQueue.main.async {
-                self.navigationItem.title = title
+                if title != nil {
+                    self.navigationItem.title = title
+                }
                 self.shoppingArray = self.categoryArray
+                self.isLoading = false
                 self.resultCollectionView.reloadData()
                 print("4. main update resultSelectedCategoryItem")
             }
@@ -412,7 +444,12 @@ extension SearchResultViewController : UICollectionViewDelegate, UICollectionVie
             let title = categoryTypeString(type: CategoryType(rawValue: indexPath.row)!)
             
             if let itemArray = Category.init(categoryTitle: title).categoryArray {
+                self.titleCategoryArray = itemArray
                 self.pushCategorySearch(textArray: itemArray, parameters: nil, title: title)
+            }
+            
+            DispatchQueue.main.async {
+                self.resultCollectionView.setContentOffset(CGPoint.zero, animated: true)
             }
             
         } else {
@@ -421,15 +458,17 @@ extension SearchResultViewController : UICollectionViewDelegate, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if collectionView == categoryCollectionView {
-            // 카테고리 마지막 보이면 처리 필요??
-        } else {
+        
+        if collectionView == resultCollectionView {
             if indexPath.row == self.shoppingArray.count-1, !isLoading {
+                self.resultCount = 0
                 self.isLoading = true
                 self.reloadMoreData()
                 
                 self.moreCount += 1
             }
+        } else {
+            
         }
     }
 }
