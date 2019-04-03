@@ -71,6 +71,7 @@ class SearchResultViewController: UIViewController {
     var isShow: Bool = false
     // Filter 관련.
     var isFilterShow: Bool = false
+    var isFilterData: Bool = false
     // Category 관련.
     var isCategoryData: Bool = false
     var titleCategoryArray: [String]?
@@ -255,7 +256,14 @@ class SearchResultViewController: UIViewController {
                     
                     print("More Category Data : \(shopping.count)")
                     self.resultCount += 1
-                    self.categoryArray.append(contentsOf: shopping)
+                    // 카테고리 필터 적용 조건
+                    if self.isFilterData {
+                        self.categoryArray = shopping
+                    } else {
+                        self.categoryArray.append(contentsOf: shopping)
+                    }
+                    self.isFilterData = false
+                    
                     if self.resultCount == self.titleCategoryArray!.count {
                         self.resultSelectedCategoryItem(true, title: nil)
                     }
@@ -318,7 +326,7 @@ class SearchResultViewController: UIViewController {
     }
     
     
-    private func pushCategorySearch(textArray: [String], parameters: [String:String]?, title:String) {
+    private func pushCategorySearch(textArray: [String], parameters: [String:String]?, title:String?) {
         
         shopping.fetchCategorySearchData(findArray: textArray, parameters: parameters, type: CollectionViewType.categoryCollectionView) { (shoppingResult) in
             
@@ -326,7 +334,14 @@ class SearchResultViewController: UIViewController {
             case let .Success(shopping):
                 print("3. Category Shopping data : \(shopping.count)")
                 self.resultCount += 1
-                self.categoryArray.append(contentsOf: shopping)
+                // 카테고리 필터 적용 조건
+                if self.isFilterData {
+                    self.categoryArray = shopping
+                } else {
+                    self.categoryArray.append(contentsOf: shopping)
+                }
+                self.isFilterData = false
+                
                 if self.resultCount == textArray.count {
                     self.resultSelectedCategoryItem(true, title: title)
                     self.isCategoryData = true
@@ -534,8 +549,19 @@ extension SearchResultViewController : RecentFindHeaderViewDelegate {
 // MARK: - FilterViewDelegate
 // 필터 delegate
 extension SearchResultViewController : FilterViewDelegate {
+    
     func touchedFilterButton(type: FilterType) {
-        self.pushSearchFindString(text: self.shopping.recentFind.first!, parameters: ["sort":type.rawValue], type: .resultCollectionView)
-        self.animateFilterView(isFilterShow: true)
+        
+        self.isFilterData = true
+        
+        if self.isCategoryData {
+            self.resultCount = 0
+            self.pushCategorySearch(textArray: self.titleCategoryArray!, parameters: ["sort":type.rawValue], title: nil)
+            self.animateFilterView(isFilterShow: true)
+        } else {
+            self.pushSearchFindString(text: self.shopping.recentFind.first!, parameters: ["sort":type.rawValue], type: .resultCollectionView)
+            self.animateFilterView(isFilterShow: true)
+        }
+        self.resultCollectionView.setContentOffset(CGPoint.zero, animated: true)
     }
 }
