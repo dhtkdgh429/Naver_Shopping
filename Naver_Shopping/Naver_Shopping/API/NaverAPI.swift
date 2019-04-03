@@ -18,8 +18,16 @@ enum ShoppingResult {
 }
 
 enum ShoppingError: Error {
-    case InvalidJSONData
+    case InvalidJSONData(String)
 }
+
+//400    SE01    Incorrect query request (잘못된 쿼리요청입니다.)    검색 API 요청에 오류가 있습니다. 요청 URL, 필수 요청 변수가 정확한지 확인 바랍니다.
+//400    SE02    Invalid display value (부적절한 display 값입니다.)    display 요청 변수값이 허용 범위(1~100)인지 확인해 보세요.
+//400    SE03    Invalid start value (부적절한 start 값입니다.)    start 요청 변수값이 허용 범위(1~1000)인지 확인해 보세요.
+//400    SE04    Invalid sort value (부적절한 sort 값입니다.)    sort 요청 변수 값에 오타가 없는지 확인해 보세요.
+//400    SE06    Malformed encoding (잘못된 형식의 인코딩입니다.)    검색어를 UTF-8로 인코딩하세요.
+//404    SE05    Invalid search api (존재하지 않는 검색 api 입니다.)    검색 API 대상에 오타가 없는지 확인해 보세요.
+//500    SE99    System Error (시스템 에러)    서버 내부 에러가 발생하였습니다. 포럼에 올려주시면 신속히 조치하겠습니다.
 
 struct NaverAPI {
     private static let baseURLString = "https://openapi.naver.com/v1"
@@ -31,7 +39,7 @@ struct NaverAPI {
     }()
     
     // get shopping URL
-    static func getShoppingURL(query: String, parameters: [String:String]?) -> URL {
+    static func getShoppingURL(query: String, parameters: [String:String]?, type: CollectionViewType?) -> URL {
         
         // URLComponents를 이용해 URL 구성.....
         let url = String(format: "%@/%@", baseURLString, Method.Shopping.rawValue)
@@ -40,8 +48,20 @@ struct NaverAPI {
         
         let queryParam = URLQueryItem(name: "query", value: query)
         queryItems.append(queryParam)
-        let displayParam = URLQueryItem(name: "display", value: "36")
-        queryItems.append(displayParam)
+        
+        if type == .categoryCollectionView {
+            let displayParam = URLQueryItem(name: "display", value: "6")
+            queryItems.append(displayParam)
+        } else {
+            let displayParam = URLQueryItem(name: "display", value: "36")
+            queryItems.append(displayParam)
+        }
+        
+        // 기본 정렬 등록일자 순으로.
+        if parameters?.filter({$0.key == "sort"}) == nil {
+            let sortParam = URLQueryItem(name: "sort", value: "date")
+            queryItems.append(sortParam)
+        }
         
         if let additionalParams = parameters {
             for (key, value) in additionalParams {
@@ -54,17 +74,24 @@ struct NaverAPI {
         return components!.url!
     }
     
-    
     static func shoppingsFromJSONData(data: Data) -> ShoppingResult {
         do {
             let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
             
             guard let jsonDictionary = jsonObject as? [String: AnyObject] else {
                     // 일치하는 데이터 구조가가 없음...
-                    return .Failure(ShoppingError.InvalidJSONData)
+                return .Failure(ShoppingError.InvalidJSONData as! Error)
             }
             
-            let shoppingArray = jsonDictionary["items"] as! [AnyObject]
+            if let errorMessage = jsonDictionary["errorMessage"] as? [String:AnyObject] {
+                let error = errorMessage["errorMessage"] as! String
+                print("Naver API Error : \(error))")
+            }
+            
+            guard let shoppingArray = jsonDictionary["items"] as? [AnyObject] else {
+                let error = jsonDictionary["errorMessage"] as! String
+                return .Failure(ShoppingError.InvalidJSONData(error))
+            }
             
             var finalShoppings = [ShoppingItem]()
             for item in shoppingArray {
@@ -74,7 +101,7 @@ struct NaverAPI {
             }
             
             if finalShoppings.count == 0 {
-                return .Failure(ShoppingError.InvalidJSONData)
+                return .Failure(ShoppingError.InvalidJSONData as! Error)
             }
             
             return .Success(finalShoppings)
@@ -103,32 +130,5 @@ struct NaverAPI {
         
         return shopping
     }
-    
-    
-//    ▿ 8 elements
-//    ▿ 0 : 2 elements
-//    - key : "image"
-//    - value : https://shopping-phinf.pstatic.net/main_1766838/17668386531.20190223184034.jpg
-//    ▿ 1 : 2 elements
-//    - key : "hprice"
-//    - value : 179000
-//    ▿ 2 : 2 elements
-//    - key : "lprice"
-//    - value : 123510
-//    ▿ 3 : 2 elements
-//    - key : "title"
-//    - value : 지컷 백셔링 쿨 트렌치 7259216001
-//    ▿ 4 : 2 elements
-//    - key : "link"
-//    - value : https://search.shopping.naver.com/gate.nhn?id=17668386531
-//    ▿ 5 : 2 elements
-//    - key : "productType"
-//    - value : 1
-//    ▿ 6 : 2 elements
-//    - key : "productId"
-//    - value : 17668386531
-//    ▿ 7 : 2 elements
-//    - key : "mallName"
-//    - value : 네이버
     
 }

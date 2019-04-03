@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tzy-ef-elA">
-                                <rect key="frame" x="137" y="338" width="140" height="71.666666666666686"/>
+                                <rect key="frame" x="137" y="339.33333333333331" width="140" height="71.666666666666686"/>
                                 <string key="text">Naver
 Shopping</string>
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="30"/>
@@ -53,6 +53,7 @@ Shopping</string>
                         <constraints>
                             <constraint firstItem="rOQ-EA-jOv" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" priority="999" constant="20" id="3LZ-yW-QE8"/>
                             <constraint firstItem="plC-Hy-qKh" firstAttribute="trailing" secondItem="rOQ-EA-jOv" secondAttribute="trailing" id="58i-rq-4RT"/>
+                            <constraint firstItem="tzy-ef-elA" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" constant="-100" id="7C1-wo-2A0"/>
                             <constraint firstItem="rOQ-EA-jOv" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="8pe-4c-jfM"/>
                             <constraint firstItem="tzy-ef-elA" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="CLw-mu-1WC"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rOQ-EA-jOv" secondAttribute="trailing" constant="30" id="RcA-nM-DcJ"/>
@@ -60,7 +61,6 @@ Shopping</string>
                             <constraint firstItem="plC-Hy-qKh" firstAttribute="leading" secondItem="rOQ-EA-jOv" secondAttribute="leading" id="XlP-zH-1i3"/>
                             <constraint firstAttribute="bottom" secondItem="44e-YQ-8xr" secondAttribute="bottom" id="gL7-n0-Q4k"/>
                             <constraint firstItem="plC-Hy-qKh" firstAttribute="top" secondItem="rOQ-EA-jOv" secondAttribute="bottom" constant="5" id="i1s-AS-Jg5"/>
-                            <constraint firstItem="tzy-ef-elA" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="250" id="kF7-rD-Ieb"/>
                             <constraint firstItem="44e-YQ-8xr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="oKm-Zc-41d"/>
                             <constraint firstItem="rOQ-EA-jOv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="ydH-61-ecc"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="44e-YQ-8xr" secondAttribute="trailing" id="z1h-Ez-itD"/>
@@ -89,8 +89,31 @@ Shopping</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uhu-kX-9lb">
+                                <rect key="frame" x="0.0" y="88" width="414" height="60"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="hDl-AS-W5D"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="H60-pE-0OD">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="NWW-0V-Bd3">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="15q-2L-4Ou">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="153" width="414" height="660"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="bI5-YY-lCH">
                                     <size key="itemSize" width="50" height="50"/>
@@ -99,7 +122,7 @@ Shopping</string>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <activityIndicatorView key="backgroundView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="fIS-pB-I7p">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="660"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </activityIndicatorView>
                                 <cells>
@@ -117,7 +140,7 @@ Shopping</string>
                                 </cells>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zrw-m4-yWI">
-                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <rect key="frame" x="0.0" y="-83" width="414" height="979"/>
                                 <connections>
                                     <action selector="touchedBgButton:" destination="UVs-Y5-lh7" eventType="touchUpInside" id="zPc-WR-0Gq"/>
                                 </connections>
@@ -141,20 +164,23 @@ Shopping</string>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Zrw-m4-yWI" firstAttribute="trailing" secondItem="15q-2L-4Ou" secondAttribute="trailing" id="4x3-dw-f7A"/>
+                            <constraint firstItem="Zrw-m4-yWI" firstAttribute="leading" secondItem="g5x-vg-dfV" secondAttribute="leading" id="4dT-cB-0Pc"/>
                             <constraint firstItem="ukS-wF-L9X" firstAttribute="trailing" secondItem="mSD-C3-Dc5" secondAttribute="trailing" constant="30" id="8jN-yp-1n9"/>
                             <constraint firstItem="8Jq-Fr-p05" firstAttribute="top" secondItem="mSD-C3-Dc5" secondAttribute="bottom" constant="5" id="BCp-gu-5N9"/>
                             <constraint firstItem="8Jq-Fr-p05" firstAttribute="trailing" secondItem="mSD-C3-Dc5" secondAttribute="trailing" id="BhI-sq-83e"/>
+                            <constraint firstItem="15q-2L-4Ou" firstAttribute="top" secondItem="uhu-kX-9lb" secondAttribute="bottom" constant="5" id="C3j-kQ-4bp"/>
                             <constraint firstItem="ukS-wF-L9X" firstAttribute="trailing" secondItem="15q-2L-4Ou" secondAttribute="trailing" id="Ixt-oT-ngn"/>
                             <constraint firstItem="mSD-C3-Dc5" firstAttribute="leading" secondItem="ukS-wF-L9X" secondAttribute="leading" constant="30" id="KeE-sJ-qH8"/>
-                            <constraint firstItem="15q-2L-4Ou" firstAttribute="top" secondItem="ukS-wF-L9X" secondAttribute="top" id="QVG-Tf-b3n"/>
+                            <constraint firstItem="Zrw-m4-yWI" firstAttribute="top" secondItem="g5x-vg-dfV" secondAttribute="top" constant="-83" id="LgJ-Oy-8YT"/>
+                            <constraint firstAttribute="trailing" secondItem="Zrw-m4-yWI" secondAttribute="trailing" id="Pl1-n8-ual"/>
                             <constraint firstItem="ukS-wF-L9X" firstAttribute="bottom" secondItem="15q-2L-4Ou" secondAttribute="bottom" id="Rat-QX-YGt"/>
+                            <constraint firstItem="uhu-kX-9lb" firstAttribute="leading" secondItem="ukS-wF-L9X" secondAttribute="leading" id="akz-cW-CZN"/>
                             <constraint firstItem="8Jq-Fr-p05" firstAttribute="leading" secondItem="mSD-C3-Dc5" secondAttribute="leading" id="bcx-qO-IcN"/>
-                            <constraint firstItem="Zrw-m4-yWI" firstAttribute="leading" secondItem="15q-2L-4Ou" secondAttribute="leading" id="e3f-yi-x97"/>
-                            <constraint firstItem="Zrw-m4-yWI" firstAttribute="top" secondItem="15q-2L-4Ou" secondAttribute="top" id="eng-xy-RIP"/>
                             <constraint firstItem="Zrw-m4-yWI" firstAttribute="bottom" secondItem="g5x-vg-dfV" secondAttribute="bottom" id="hH5-hT-N7a"/>
                             <constraint firstItem="15q-2L-4Ou" firstAttribute="leading" secondItem="ukS-wF-L9X" secondAttribute="leading" id="lCv-i3-lC1"/>
+                            <constraint firstItem="uhu-kX-9lb" firstAttribute="top" secondItem="ukS-wF-L9X" secondAttribute="top" id="nEu-gj-ut1"/>
                             <constraint firstItem="mSD-C3-Dc5" firstAttribute="top" secondItem="ukS-wF-L9X" secondAttribute="top" constant="-60" id="o2e-WP-rBl"/>
+                            <constraint firstItem="uhu-kX-9lb" firstAttribute="trailing" secondItem="ukS-wF-L9X" secondAttribute="trailing" id="sCP-kH-EsG"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ukS-wF-L9X"/>
                     </view>
@@ -178,9 +204,10 @@ Shopping</string>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="bgButton" destination="Zrw-m4-yWI" id="Jrc-t6-WmD"/>
-                        <outlet property="collectionView" destination="15q-2L-4Ou" id="q5u-vm-qsq"/>
+                        <outlet property="categoryCollectionView" destination="uhu-kX-9lb" id="aOI-G4-ggY"/>
                         <outlet property="filterItem" destination="SAo-HO-pRA" id="fP8-NA-uCl"/>
                         <outlet property="indicator" destination="fIS-pB-I7p" id="PKH-YG-FOd"/>
+                        <outlet property="resultCollectionView" destination="15q-2L-4Ou" id="8eJ-an-cEF"/>
                         <outlet property="tableView" destination="8Jq-Fr-p05" id="k1m-6s-PH2"/>
                         <outlet property="tableViewHeightConst" destination="e5R-C6-Vzc" id="BGm-Wr-vTS"/>
                         <outlet property="textField" destination="mSD-C3-Dc5" id="cGs-vr-iO7"/>

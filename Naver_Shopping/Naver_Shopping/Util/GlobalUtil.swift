@@ -38,7 +38,10 @@ extension UIViewController {
         navigationController?.navigationBar.backIndicatorImage = image
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = image
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        
+        navigationController?.navigationBar.barTintColor = UIColor.white
+        // 하단 라인 삭제. nil로 하면 안됨.. 빈 이미지로 줘야함...
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = false
     }
     
 }

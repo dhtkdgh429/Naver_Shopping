@@ -11,9 +11,9 @@ import Kingfisher
 
 class SearchResultCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet weak var itemImage: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var lpriceLabel: UILabel!
+    @IBOutlet private weak var itemImage: UIImageView!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var lpriceLabel: UILabel!
     
     var url: String?
     var image: UIImage?

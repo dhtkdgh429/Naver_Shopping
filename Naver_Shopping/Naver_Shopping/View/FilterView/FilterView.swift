@@ -13,7 +13,6 @@ protocol FilterViewDelegate {
 }
 
 enum FilterType:String {
-    case simButton = "sim"
     case dateButton = "date"
     case ascButton = "asc"
     case dscButton = "dsc"
@@ -21,7 +20,6 @@ enum FilterType:String {
 
 class FilterView: UIView {
     
-    @IBOutlet weak var simButton: UIButton!     // 유사도순
     @IBOutlet weak var dateButton: UIButton!    // 등록일순
     @IBOutlet weak var ascButton: UIButton!     // 가격 오름차순
     @IBOutlet weak var dscButton: UIButton!     // 가격 내림차순
@@ -38,13 +36,6 @@ class FilterView: UIView {
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.init(red: 0.8, green: 0.8, blue: 0.8, alpha: 1.0).cgColor
         
-    }
-    
-    @IBAction func touchedSimButton(_ sender: UIButton) {
-        print("sim button")
-        if let delegate = self.delegate {
-            delegate.touchedFilterButton(type: .simButton)
-        }
     }
     
     @IBAction func touchedDateButton(_ sender: UIButton) {

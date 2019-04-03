@@ -61,21 +61,39 @@ class ShoppingStore: NSObject {
     
     // Naver에 쇼핑 데이터를 요청하는 메소드...
     // 데이터 호출 클로져 처리...
-    func fetchShoppingData(findString: String, parameters: [String:String]?, completion: @escaping (ShoppingResult) -> Void) {
+    func fetchShoppingData(findString: String, parameters: [String:String]?, type: CollectionViewType?, completion: @escaping (ShoppingResult) -> Void) {
         
-        let url = NaverAPI.getShoppingURL(query: findString, parameters: parameters)
+        let url = NaverAPI.getShoppingURL(query: findString, parameters: parameters, type: type)
         let request = URLRequest(url: url)
         
         let task = session.dataTask(with: request) {
             (data, response, error) in
-            print(request.allHTTPHeaderFields)
             let result = self.processShoppingRequest(data: data, error: error)
             
-            print("Shopping response: \(response)")
+            print("Shopping response: \(String(describing: response))")
             completion(result)
             
         }
         task.resume()
+    }
+    
+    // 카테고리 다중 검색을 위해 별도 생성.
+    func fetchCategorySearchData(findArray: [String], parameters: [String:String]?, type: CollectionViewType?, completion: @escaping (ShoppingResult) -> Void) {
+        var url: URL?
+        for findString in findArray {
+            url = NaverAPI.getShoppingURL(query: findString, parameters: parameters, type: type)
+            let request = URLRequest(url: url!)
+            
+            let task = session.dataTask(with: request) {
+                (data, response, error) in
+                let result = self.processShoppingRequest(data: data, error: error)
+                
+                print("Category response: \(String(describing: response))")
+                completion(result)
+                
+            }
+            task.resume()
+        }
     }
     
     // json data에 대한 방어 코드...

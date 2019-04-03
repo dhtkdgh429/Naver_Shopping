@@ -93,14 +93,14 @@ class MainSearchViewController: UIViewController {
     
     private func pushSearchFindString(text: String) {
         
-        shopping.fetchShoppingData(findString: text, parameters: nil) { (shoppingResult) in
+        shopping.fetchShoppingData(findString: text, parameters: nil, type: nil) { (shoppingResult) in
             switch shoppingResult {
             case let .Success(shopping):
                 print("Shopping data : \(shopping.count)")
                 self.shoppingArray = shopping
+                // 검색어 저장 메소드로 수정.
+                self.shopping.setRecentFindData(findString: text)
                 DispatchQueue.main.async {
-                    // 검색어 저장 메소드로 수정.
-                    self.shopping.setRecentFindData(findString: text)
                     self.performSegue(withIdentifier: "ShowSearch", sender: self)
                     self.textField.resignFirstResponder()
                     self.animatedTextfield(isShow: true)

@@ -8,9 +8,26 @@
 
 import UIKit
 
+enum CollectionViewType {
+    case categoryCollectionView,
+    resultCollectionView
+}
+
+// caseIterable count 위해.
+enum CategoryType: Int, CaseIterable {
+    case outer = 0,
+    top,
+    pants,
+    skirt,
+    onepiece,
+    bag,
+    shoes,
+    traing
+}
+
 class SearchResultViewController: UIViewController {
     
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var resultCollectionView: UICollectionView!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     @IBOutlet weak var textField: SearchTextField!
     @IBOutlet weak var textFieldConst: NSLayoutConstraint!
@@ -18,9 +35,10 @@ class SearchResultViewController: UIViewController {
     @IBOutlet weak var tableView: RecentFindTableView!
     @IBOutlet weak var tableViewHeightConst: NSLayoutConstraint!
     @IBOutlet weak var filterItem: UIBarButtonItem!
+    @IBOutlet weak var categoryCollectionView: UICollectionView!
+    
     private var filterView: FilterView!
     private var filterViewTopConst: NSLayoutConstraint!
-//    @IBOutlet weak var filterViewHeightConst: NSLayoutConstraint!
 
     
     let cellHeight:CGFloat = 35.0
@@ -31,6 +49,7 @@ class SearchResultViewController: UIViewController {
         }
     }
     var shoppingArray: [ShoppingItem]!
+    var categoryArray = [ShoppingItem]()
     
     // collectionview moredata 관련..
     var moreCount: Int = 0
@@ -52,15 +71,28 @@ class SearchResultViewController: UIViewController {
     var isShow: Bool = false
     // Filter 관련.
     var isFilterShow: Bool = false
+    // Category 데이터 호출 성공여부 관련.
+    var resultCount: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView.delegate = self
-        collectionView.dataSource = self
+        // category collectionView
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
+        categoryCollectionView.collectionViewLayout = flowLayout
+        categoryCollectionView.showsHorizontalScrollIndicator = false
         
-        collectionView.register(UINib.init(nibName: "SearchResultCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "SearchResultCollectionViewCell")
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "MoreItemCell")
+        categoryCollectionView.delegate = self
+        categoryCollectionView.dataSource = self
+        categoryCollectionView.register(UINib.init(nibName: "CategoryCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CategoryCollectionViewCell")
+        
+        // result collectionView
+        resultCollectionView.delegate = self
+        resultCollectionView.dataSource = self
+        
+        resultCollectionView.register(UINib.init(nibName: "SearchResultCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "SearchResultCollectionViewCell")
+        resultCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "MoreItemCell")
         
         if shoppingArray != nil {
             print("result VC : \(shoppingArray.count)")
@@ -72,6 +104,7 @@ class SearchResultViewController: UIViewController {
         textField.alpha = 0
         textField.delegate = self
         textFieldConst.constant = -60
+        
         // bgButton set
         bgButton.backgroundColor = UIColor.init(red: 0.9, green: 0.9, blue: 0.9, alpha: 0.7)
         bgButton.isHidden = true
@@ -104,48 +137,49 @@ class SearchResultViewController: UIViewController {
         filterViewTopConst.isActive = true
         filterView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         filterView.widthAnchor.constraint(equalToConstant: 150).isActive = true
-        filterView.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        filterView.heightAnchor.constraint(equalToConstant: 150).isActive = true
         
-    }
-    
-    private func animateFilterView(isFilterShow: Bool) {
-        self.filterViewTopConst.isActive = false
-        UIView.animate(withDuration: 0.3) {
-            if isFilterShow {
-                self.filterViewTopConst = self.filterView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: -self.filterView.frame.height)
-                self.filterViewTopConst.isActive = true
-                self.isFilterShow = false
-            } else {
-                self.filterViewTopConst = self.filterView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor)
-                self.filterViewTopConst.isActive = true
-                self.isFilterShow = true
-            }
-            self.view.layoutIfNeeded()
-        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowDetail" {
             let resultDetailVC = segue.destination as! ResultDetailViewController
-            if let indexPath = collectionView.indexPathsForSelectedItems?.first {
+            if let indexPath = resultCollectionView.indexPathsForSelectedItems?.first {
                 resultDetailVC.shoppingItem = shoppingArray[indexPath.row]
             }
         }
     }
     
     @IBAction func touchedSearchBarButton(_ sender: UIBarButtonItem) {
+        
+        // 필터 창이 열려있으면 닫음.
+        if isFilterShow {
+            self.animateFilterView(isFilterShow: true)
+        }
         self.animatedTextfield(isShow: self.isShow)
         
     }
     
     @IBAction func touchedFilterBarButton(_ sender: UIBarButtonItem) {
+        // 검색 창이 열려있으면 닫음.
+        if isShow {
+            self.animatedTextfield(isShow: true)
+        }
         animateFilterView(isFilterShow: self.isFilterShow)
     }
     
-    
+    // 배경 터치.
     @IBAction func touchedBgButton(_ sender: Any) {
         self.textField.resignFirstResponder()
-        self.animatedTextfield(isShow: true)
+        // 검색 창이 열려있으면 닫음.
+        if isShow {
+            self.animatedTextfield(isShow: true)
+        }
+        // 필터 창이 열려있으면 닫음.
+        if isFilterShow {
+            self.animateFilterView(isFilterShow: true)
+        }
+        
     }
     
     private func animatedTextfield(isShow: Bool) {
@@ -175,6 +209,24 @@ class SearchResultViewController: UIViewController {
         }
     }
     
+    private func animateFilterView(isFilterShow: Bool) {
+        self.filterViewTopConst.isActive = false
+        UIView.animate(withDuration: 0.3) {
+            if isFilterShow {
+                self.filterViewTopConst = self.filterView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: -self.filterView.frame.height)
+                self.filterViewTopConst.isActive = true
+                self.bgButton.isHidden = true
+                self.isFilterShow = false
+            } else {
+                self.filterViewTopConst = self.filterView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor)
+                self.filterViewTopConst.isActive = true
+                self.bgButton.isHidden = false
+                self.isFilterShow = true
+            }
+            self.view.layoutIfNeeded()
+        }
+    }
+    
     private func updateTableView() {
         // find tableView data set
         tableViewHeightConst.constant = tableView.getTableViewHeight(count: shopping.recentFind.count)
@@ -190,13 +242,13 @@ class SearchResultViewController: UIViewController {
         // 페이지 시작 지점 : 현재 데이터 개수의 + 1 위치...
         let startValue = String(self.shoppingArray.count + 1)
         let startParameter = ["start":startValue]
-        self.shopping.fetchShoppingData(findString: self.shopping.recentFind.first!, parameters: startParameter) { (shoppingResult) in
+        self.shopping.fetchShoppingData(findString: self.shopping.recentFind.first!, parameters: startParameter, type: nil) { (shoppingResult) in
             switch shoppingResult {
             case let .Success(shopping):
                 print("More Shopping data : \(shopping.count)")
                 self.shoppingArray.append(contentsOf: shopping)
                 DispatchQueue.main.async {
-                    self.collectionView.reloadData()
+                    self.resultCollectionView.reloadData()
                 }
                 self.isLoading = false
             case let .Failure(error):
@@ -205,41 +257,115 @@ class SearchResultViewController: UIViewController {
         }
     }
     
-    private func pushSearchFindString(text: String, parameters: [String:String]?) {
-        shopping.fetchShoppingData(findString: text, parameters: parameters) { (shoppingResult) in
+    private func pushSearchFindString(text: String, parameters: [String:String]?, type: CollectionViewType) {
+        shopping.fetchShoppingData(findString: text, parameters: parameters, type: type) { (shoppingResult) in
             switch shoppingResult {
             case let .Success(shopping):
                 print("Result Shopping data : \(shopping.count)")
-                self.shoppingArray = shopping
+                
+                if type == .resultCollectionView {
+                    self.shoppingArray = shopping
+                    // 검색어 저장 메소드로 수정.
+                    self.shopping.setRecentFindData(findString: text)
+                } else {
+                    self.categoryArray.append(contentsOf: shopping)
+                }
                 
                 DispatchQueue.main.async {
                     self.textField.resignFirstResponder()
-                    self.collectionView.reloadData()
+                    self.resultCollectionView.reloadData()
                     self.animatedTextfield(isShow: true)
-                    // 검색어 저장 메소드로 수정.
-                    self.shopping.setRecentFindData(findString: text)
                     self.navigationItem.title = self.shopping.recentFind.first
                     self.textField.text = ""
                     self.updateTableView()
                 }
             case let .Failure(error):
                 print("Result Fetching Error \(error)")
-                self.textField.resignFirstResponder()
-                self.animatedTextfield(isShow: true)
+                DispatchQueue.main.async {
+                    self.textField.resignFirstResponder()
+                    self.animatedTextfield(isShow: true)
+                }
             }
+        }
+    }
+    
+    
+    private func pushCategorySearch(textArray: [String], parameters: [String:String]?, title:String) {
+        
+        shopping.fetchCategorySearchData(findArray: textArray, parameters: parameters, type: CollectionViewType.categoryCollectionView) { (shoppingResult) in
+            
+            switch shoppingResult {
+            case let .Success(shopping):
+                print("3. Category Shopping data : \(shopping.count)")
+                self.resultCount += 1
+                self.categoryArray.append(contentsOf: shopping)
+                if self.resultCount == textArray.count {
+                    self.resultSelectedCategoryItem(true, title: title)
+                }
+            case let .Failure(error):
+                print("Category Fetching Error \(error)")
+                self.categoryArray.removeAll()
+                self.resultCount = 0
+            }
+        }
+    }
+    
+    private func resultSelectedCategoryItem(_ isSuccess: Bool, title: String) {
+        // 데이터 호출 성공 시, 업데이트.
+        if isSuccess {
+            DispatchQueue.main.async {
+                self.navigationItem.title = title
+                self.shoppingArray = self.categoryArray
+                self.resultCollectionView.reloadData()
+                print("4. main update resultSelectedCategoryItem")
+            }
+        } else {
+            // 실패 시, 호출하던 데이터 삭제 후, 기존 데이터 보여주기.
+            self.categoryArray.removeAll()
+            self.resultCollectionView.reloadData()
+        }
+    }
+    
+    private func categoryTypeString(type: CategoryType) -> String {
+        switch type {
+        case .outer:
+            return "아우터"
+        case .top:
+            return "상의"
+        case .pants:
+            return "바지"
+        case .skirt:
+            return "스커트"
+        case .onepiece:
+            return "원피스"
+        case .bag:
+            return "가방"
+        case .shoes:
+            return "슈즈"
+        case .traing:
+            return "트레이닝"
         }
     }
     
 }
 
+// MARK: - UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
 extension SearchResultViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return shoppingArray.count
+        if collectionView == categoryCollectionView {
+            return CategoryType.allCases.count
+        } else {
+            return shoppingArray.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let widthSize = UIScreen.main.bounds.width
-        return CGSize(width: widthSize/3-15, height: widthSize/3-15+50)
+        if collectionView == categoryCollectionView {
+            return CGSize(width: 60, height: 60)
+        } else {
+            let widthSize = UIScreen.main.bounds.width
+            return CGSize(width: widthSize/3-15, height: widthSize/3-15+50)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -247,27 +373,63 @@ extension SearchResultViewController : UICollectionViewDelegate, UICollectionVie
         return inset
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let identifier = "SearchResultCollectionViewCell"
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! SearchResultCollectionViewCell
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         
-        let item = shoppingArray[indexPath.row]
-        cell.setLabel(item: item)
-        cell.setImage(item.image!)
-        return cell
+        if collectionView == categoryCollectionView {
+            return 10.0
+        } else {
+            return 0
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if collectionView == categoryCollectionView {
+            let identifier = "CategoryCollectionViewCell"
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! CategoryCollectionViewCell
+            
+            let item = categoryTypeString(type: CategoryType(rawValue: indexPath.row)!)
+            cell.setLabel(item: item)
+            
+            return cell
+        } else {
+            let identifier = "SearchResultCollectionViewCell"
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! SearchResultCollectionViewCell
+            
+            let item = shoppingArray[indexPath.row]
+            cell.setLabel(item: item)
+            cell.setImage(item.image!)
+            return cell
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "ShowDetail", sender: self)    
+        
+        if collectionView == categoryCollectionView {
+            print("1. selected category \(indexPath.row)")
+            // 카테고리 데이터 초기화
+            self.resultCount = 0
+            self.categoryArray.removeAll()
+            let title = categoryTypeString(type: CategoryType(rawValue: indexPath.row)!)
+            
+            if let itemArray = Category.init(categoryTitle: title).categoryArray {
+                self.pushCategorySearch(textArray: itemArray, parameters: nil, title: title)
+            }
+            
+        } else {
+            performSegue(withIdentifier: "ShowDetail", sender: self)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        
-        if indexPath.row == self.shoppingArray.count-1, !isLoading {
-            self.isLoading = true
-            self.reloadMoreData()
-            
-            self.moreCount += 1
+        if collectionView == categoryCollectionView {
+            // 카테고리 마지막 보이면 처리 필요??
+        } else {
+            if indexPath.row == self.shoppingArray.count-1, !isLoading {
+                self.isLoading = true
+                self.reloadMoreData()
+                
+                self.moreCount += 1
+            }
         }
     }
 }
@@ -277,7 +439,7 @@ extension SearchResultViewController : UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         if textField.text!.count > 0 {
-            pushSearchFindString(text: textField.text!, parameters: nil)
+            pushSearchFindString(text: textField.text!, parameters: nil, type: .resultCollectionView)
             return true
         } else {
             return false
@@ -312,7 +474,7 @@ extension SearchResultViewController : UITableViewDelegate {
         let cell = tableView.cellForRow(at: indexPath) as! RecentFindTableViewCell
         
         let findString = cell.findLabel.text
-        self.pushSearchFindString(text: findString!, parameters: nil)
+        self.pushSearchFindString(text: findString!, parameters: nil, type: .resultCollectionView)
     }
 }
 
@@ -334,7 +496,7 @@ extension SearchResultViewController : RecentFindHeaderViewDelegate {
 // 필터 delegate
 extension SearchResultViewController : FilterViewDelegate {
     func touchedFilterButton(type: FilterType) {
-        self.pushSearchFindString(text: self.shopping.recentFind.first!, parameters: ["sort":type.rawValue])
+        self.pushSearchFindString(text: self.shopping.recentFind.first!, parameters: ["sort":type.rawValue], type: .resultCollectionView)
         self.animateFilterView(isFilterShow: true)
     }
 }

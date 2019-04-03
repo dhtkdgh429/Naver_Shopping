@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		0366A542DEE86974CB45AAB9 /* Pods_Naver_Shopping.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C081B5FA80487DFFB1F44C2 /* Pods_Naver_Shopping.framework */; };
 		CB16776322508E0F00399B4D /* ResultDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB16776222508E0F00399B4D /* ResultDetailViewController.swift */; };
+		CB1820872254378700C99405 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1820852254378700C99405 /* CategoryCollectionViewCell.swift */; };
+		CB1820882254378700C99405 /* CategoryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB1820862254378700C99405 /* CategoryCollectionViewCell.xib */; };
+		CB18208A225468FD00C99405 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB182089225468FD00C99405 /* Category.swift */; };
 		CB1912C6225214700056A68B /* RecentFindTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1912C4225214700056A68B /* RecentFindTableViewCell.swift */; };
 		CB1912C7225214700056A68B /* RecentFindTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB1912C5225214700056A68B /* RecentFindTableViewCell.xib */; };
 		CB4240982252E94E00606B35 /* RecentFindHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4240972252E94E00606B35 /* RecentFindHeaderView.swift */; };
@@ -27,13 +30,16 @@
 		CBDCB71E224CB3AB0030F6B4 /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDCB71D224CB3AB0030F6B4 /* SearchTextField.swift */; };
 		CBDCB720224CB47C0030F6B4 /* ColorUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDCB71F224CB47C0030F6B4 /* ColorUtil.swift */; };
 		CBDCB723224CB8880030F6B4 /* NaverAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDCB722224CB8880030F6B4 /* NaverAPI.swift */; };
-		CBDCB728224CCBEA0030F6B4 /* Shopping.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDCB727224CCBEA0030F6B4 /* Shopping.swift */; };
+		CBDCB728224CCBEA0030F6B4 /* ShoppingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDCB727224CCBEA0030F6B4 /* ShoppingItem.swift */; };
 		CBDCB72A224CCF5D0030F6B4 /* ShoppingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDCB729224CCF5D0030F6B4 /* ShoppingStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		8C081B5FA80487DFFB1F44C2 /* Pods_Naver_Shopping.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Naver_Shopping.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB16776222508E0F00399B4D /* ResultDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultDetailViewController.swift; sourceTree = "<group>"; };
+		CB1820852254378700C99405 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		CB1820862254378700C99405 /* CategoryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryCollectionViewCell.xib; sourceTree = "<group>"; };
+		CB182089225468FD00C99405 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		CB1912C4225214700056A68B /* RecentFindTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentFindTableViewCell.swift; sourceTree = "<group>"; };
 		CB1912C5225214700056A68B /* RecentFindTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecentFindTableViewCell.xib; sourceTree = "<group>"; };
 		CB4240972252E94E00606B35 /* RecentFindHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentFindHeaderView.swift; sourceTree = "<group>"; };
@@ -54,7 +60,7 @@
 		CBDCB71D224CB3AB0030F6B4 /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		CBDCB71F224CB47C0030F6B4 /* ColorUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorUtil.swift; sourceTree = "<group>"; };
 		CBDCB722224CB8880030F6B4 /* NaverAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverAPI.swift; sourceTree = "<group>"; };
-		CBDCB727224CCBEA0030F6B4 /* Shopping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shopping.swift; sourceTree = "<group>"; };
+		CBDCB727224CCBEA0030F6B4 /* ShoppingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingItem.swift; sourceTree = "<group>"; };
 		CBDCB729224CCF5D0030F6B4 /* ShoppingStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingStore.swift; sourceTree = "<group>"; };
 		D726B62154A9F3215318881F /* Pods-Naver_Shopping.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Naver_Shopping.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Naver_Shopping/Pods-Naver_Shopping.debug.xcconfig"; sourceTree = "<group>"; };
 		F2B5FA893D48633693C02F8E /* Pods-Naver_Shopping.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Naver_Shopping.release.xcconfig"; path = "Pods/Target Support Files/Pods-Naver_Shopping/Pods-Naver_Shopping.release.xcconfig"; sourceTree = "<group>"; };
@@ -117,6 +123,15 @@
 			path = FilterView;
 			sourceTree = "<group>";
 		};
+		CB4240A2225361E400606B35 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				CB1820852254378700C99405 /* CategoryCollectionViewCell.swift */,
+				CB1820862254378700C99405 /* CategoryCollectionViewCell.xib */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
 		CBB28405224F994E00333684 /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -171,6 +186,7 @@
 		CBDCB711224CA8ED0030F6B4 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CB4240A2225361E400606B35 /* Category */,
 				CB42409D22532E5E00606B35 /* FilterView */,
 				CB1912C8225214730056A68B /* RecentFind */,
 				CBDCB701224CA1B50030F6B4 /* Main.storyboard */,
@@ -218,8 +234,9 @@
 		CBDCB724224CCBB90030F6B4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				CBDCB727224CCBEA0030F6B4 /* Shopping.swift */,
+				CBDCB727224CCBEA0030F6B4 /* ShoppingItem.swift */,
 				CBDCB729224CCF5D0030F6B4 /* ShoppingStore.swift */,
+				CB182089225468FD00C99405 /* Category.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -286,6 +303,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB1912C7225214700056A68B /* RecentFindTableViewCell.xib in Resources */,
+				CB1820882254378700C99405 /* CategoryCollectionViewCell.xib in Resources */,
 				CBDCB708224CA1B60030F6B4 /* LaunchScreen.storyboard in Resources */,
 				CB4240A122532E7A00606B35 /* FilterView.xib in Resources */,
 				CBDCB705224CA1B60030F6B4 /* Assets.xcassets in Resources */,
@@ -357,7 +375,8 @@
 			files = (
 				CBDCB6FE224CA1B50030F6B4 /* AppDelegate.swift in Sources */,
 				CB42409C22531B3800606B35 /* RecentFindTableView.swift in Sources */,
-				CBDCB728224CCBEA0030F6B4 /* Shopping.swift in Sources */,
+				CBDCB728224CCBEA0030F6B4 /* ShoppingItem.swift in Sources */,
+				CB1820872254378700C99405 /* CategoryCollectionViewCell.swift in Sources */,
 				CBDCB710224CA8E90030F6B4 /* MainSearchViewController.swift in Sources */,
 				CB16776322508E0F00399B4D /* ResultDetailViewController.swift in Sources */,
 				CBDCB72A224CCF5D0030F6B4 /* ShoppingStore.swift in Sources */,
@@ -365,6 +384,7 @@
 				CBB2840E224FAAED00333684 /* GlobalUtil.swift in Sources */,
 				CBDCB723224CB8880030F6B4 /* NaverAPI.swift in Sources */,
 				CBDCB71E224CB3AB0030F6B4 /* SearchTextField.swift in Sources */,
+				CB18208A225468FD00C99405 /* Category.swift in Sources */,
 				CBB28408224F997A00333684 /* SearchResultViewController.swift in Sources */,
 				CBB2840B224FA6C100333684 /* SearchResultCollectionViewCell.swift in Sources */,
 				CB4240982252E94E00606B35 /* RecentFindHeaderView.swift in Sources */,

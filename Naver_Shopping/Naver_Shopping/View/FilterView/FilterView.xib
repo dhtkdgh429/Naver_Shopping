@@ -13,7 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="Auf-J1-Tii" customClass="FilterView" customModule="Naver_Shopping" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="150" height="200"/>
+            <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="필터" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="utk-c8-Y7j">
@@ -22,20 +22,10 @@
                     <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EQH-6g-rex">
-                    <rect key="frame" x="15" y="50.5" width="91" height="29"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <state key="normal" title="유사도 순 (기본)">
-                        <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                    </state>
-                    <connections>
-                        <action selector="touchedSimButton:" destination="Auf-J1-Tii" eventType="touchUpInside" id="oEj-wb-a44"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TIi-M4-sW1">
-                    <rect key="frame" x="15" y="84.5" width="53" height="29"/>
+                    <rect key="frame" x="15" y="45.5" width="87" height="29"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <state key="normal" title="등록일 순">
+                    <state key="normal" title="신상품순 (기본)">
                         <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
@@ -43,9 +33,9 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="edW-Jh-hbt">
-                    <rect key="frame" x="15" y="118.5" width="81" height="29"/>
+                    <rect key="frame" x="15" y="79.5" width="65" height="29"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <state key="normal" title="가격이 낮은 순">
+                    <state key="normal" title="낮은 가격순">
                         <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
@@ -53,9 +43,9 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="COe-V6-SOi">
-                    <rect key="frame" x="15" y="152.5" width="81" height="29"/>
+                    <rect key="frame" x="15" y="113.5" width="65" height="29"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <state key="normal" title="가격이 높은 순">
+                    <state key="normal" title="높은 가격순">
                         <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
@@ -65,15 +55,13 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="EQH-6g-rex" firstAttribute="top" secondItem="utk-c8-Y7j" secondAttribute="bottom" constant="15" id="Bfj-XR-QHV"/>
-                <constraint firstItem="TIi-M4-sW1" firstAttribute="top" secondItem="EQH-6g-rex" secondAttribute="bottom" constant="5" id="GEM-wI-4SY"/>
-                <constraint firstItem="EQH-6g-rex" firstAttribute="leading" secondItem="utk-c8-Y7j" secondAttribute="leading" id="KRQ-X1-Xhc"/>
+                <constraint firstItem="TIi-M4-sW1" firstAttribute="leading" secondItem="utk-c8-Y7j" secondAttribute="leading" id="A1m-aT-VF0"/>
+                <constraint firstItem="TIi-M4-sW1" firstAttribute="top" secondItem="utk-c8-Y7j" secondAttribute="bottom" constant="10" id="Dwe-wF-OfC"/>
                 <constraint firstItem="edW-Jh-hbt" firstAttribute="leading" secondItem="TIi-M4-sW1" secondAttribute="leading" id="YTU-Y5-4Fo"/>
                 <constraint firstItem="COe-V6-SOi" firstAttribute="leading" secondItem="edW-Jh-hbt" secondAttribute="leading" id="YjT-pW-2pW"/>
                 <constraint firstItem="edW-Jh-hbt" firstAttribute="top" secondItem="TIi-M4-sW1" secondAttribute="bottom" constant="5" id="fLF-li-VEI"/>
                 <constraint firstItem="COe-V6-SOi" firstAttribute="top" secondItem="edW-Jh-hbt" secondAttribute="bottom" constant="5" id="pZu-cc-RbR"/>
                 <constraint firstItem="utk-c8-Y7j" firstAttribute="leading" secondItem="Auf-J1-Tii" secondAttribute="leading" constant="15" id="pjQ-Vs-qpc"/>
-                <constraint firstItem="TIi-M4-sW1" firstAttribute="leading" secondItem="EQH-6g-rex" secondAttribute="leading" id="xzR-w0-NuE"/>
                 <constraint firstItem="utk-c8-Y7j" firstAttribute="top" secondItem="Auf-J1-Tii" secondAttribute="top" constant="15" id="ysW-xO-tm5"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -82,7 +70,6 @@
                 <outlet property="ascButton" destination="edW-Jh-hbt" id="oDM-Lj-SRY"/>
                 <outlet property="dateButton" destination="TIi-M4-sW1" id="bFn-M5-eHn"/>
                 <outlet property="dscButton" destination="COe-V6-SOi" id="6oq-wo-lPJ"/>
-                <outlet property="simButton" destination="EQH-6g-rex" id="hhe-Tl-Yjk"/>
             </connections>
             <point key="canvasLocation" x="136" y="557.27136431784118"/>
         </view>
