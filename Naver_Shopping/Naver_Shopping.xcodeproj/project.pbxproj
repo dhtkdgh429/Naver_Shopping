@@ -14,6 +14,8 @@
 		CB18208A225468FD00C99405 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB182089225468FD00C99405 /* Category.swift */; };
 		CB1912C6225214700056A68B /* RecentFindTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1912C4225214700056A68B /* RecentFindTableViewCell.swift */; };
 		CB1912C7225214700056A68B /* RecentFindTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB1912C5225214700056A68B /* RecentFindTableViewCell.xib */; };
+		CB2096A522571FE70024B83B /* ResultNotFoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2096A422571FE70024B83B /* ResultNotFoundView.swift */; };
+		CB2096A7225720090024B83B /* ResultNotFoundView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB2096A6225720090024B83B /* ResultNotFoundView.xib */; };
 		CB4240982252E94E00606B35 /* RecentFindHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4240972252E94E00606B35 /* RecentFindHeaderView.swift */; };
 		CB42409C22531B3800606B35 /* RecentFindTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB42409B22531B3800606B35 /* RecentFindTableView.swift */; };
 		CB42409F22532E7000606B35 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB42409E22532E7000606B35 /* FilterView.swift */; };
@@ -42,6 +44,8 @@
 		CB182089225468FD00C99405 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		CB1912C4225214700056A68B /* RecentFindTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentFindTableViewCell.swift; sourceTree = "<group>"; };
 		CB1912C5225214700056A68B /* RecentFindTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecentFindTableViewCell.xib; sourceTree = "<group>"; };
+		CB2096A422571FE70024B83B /* ResultNotFoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultNotFoundView.swift; sourceTree = "<group>"; };
+		CB2096A6225720090024B83B /* ResultNotFoundView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultNotFoundView.xib; sourceTree = "<group>"; };
 		CB4240972252E94E00606B35 /* RecentFindHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentFindHeaderView.swift; sourceTree = "<group>"; };
 		CB42409B22531B3800606B35 /* RecentFindTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentFindTableView.swift; sourceTree = "<group>"; };
 		CB42409E22532E7000606B35 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
@@ -112,6 +116,15 @@
 				CB1912C5225214700056A68B /* RecentFindTableViewCell.xib */,
 			);
 			path = RecentFind;
+			sourceTree = "<group>";
+		};
+		CB2096A322571FCA0024B83B /* ResultNotFound */ = {
+			isa = PBXGroup;
+			children = (
+				CB2096A422571FE70024B83B /* ResultNotFoundView.swift */,
+				CB2096A6225720090024B83B /* ResultNotFoundView.xib */,
+			);
+			path = ResultNotFound;
 			sourceTree = "<group>";
 		};
 		CB42409D22532E5E00606B35 /* FilterView */ = {
@@ -186,6 +199,7 @@
 		CBDCB711224CA8ED0030F6B4 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CB2096A322571FCA0024B83B /* ResultNotFound */,
 				CB4240A2225361E400606B35 /* Category */,
 				CB42409D22532E5E00606B35 /* FilterView */,
 				CB1912C8225214730056A68B /* RecentFind */,
@@ -308,6 +322,7 @@
 				CB4240A122532E7A00606B35 /* FilterView.xib in Resources */,
 				CBDCB705224CA1B60030F6B4 /* Assets.xcassets in Resources */,
 				CBDCB703224CA1B50030F6B4 /* Main.storyboard in Resources */,
+				CB2096A7225720090024B83B /* ResultNotFoundView.xib in Resources */,
 				CBB2840C224FA6C100333684 /* SearchResultCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -373,6 +388,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB2096A522571FE70024B83B /* ResultNotFoundView.swift in Sources */,
 				CBDCB6FE224CA1B50030F6B4 /* AppDelegate.swift in Sources */,
 				CB42409C22531B3800606B35 /* RecentFindTableView.swift in Sources */,
 				CBDCB728224CCBEA0030F6B4 /* ShoppingItem.swift in Sources */,

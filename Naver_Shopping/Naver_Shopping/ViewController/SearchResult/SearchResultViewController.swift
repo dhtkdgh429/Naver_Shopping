@@ -40,6 +40,8 @@ class SearchResultViewController: UIViewController {
     private var filterView: FilterView!
     private var filterViewTopConst: NSLayoutConstraint!
 
+    // 검색 결과 없음 창 관련.
+    var resultNotFountView: ResultNotFoundView?
     
     let cellHeight:CGFloat = 35.0
     
@@ -175,7 +177,6 @@ class SearchResultViewController: UIViewController {
     
     // 배경 터치.
     @IBAction func touchedBgButton(_ sender: Any) {
-        self.textField.resignFirstResponder()
         // 검색 창이 열려있으면 닫음.
         if isShow {
             self.animatedTextfield(isShow: true)
@@ -189,13 +190,13 @@ class SearchResultViewController: UIViewController {
     
     private func animatedTextfield(isShow: Bool) {
         
-        if !isShow {
-            self.textField.becomeFirstResponder()
-        } else {
-            self.textField.resignFirstResponder()
-        }
-        
         UIView.animate(withDuration: 0.3) {
+            
+            if isShow {
+                self.textField.resignFirstResponder()
+            } else {
+                self.textField.becomeFirstResponder()
+            }
             
             if isShow {
                 self.textFieldConst.constant = -60
@@ -238,10 +239,39 @@ class SearchResultViewController: UIViewController {
         tableView.reloadData()
     }
     
+    private func setResultNotFoundView(text: String) {
+        self.resultNotFountView = ResultNotFoundView.initResultNotFoundView()
+        self.view.addSubview(self.resultNotFountView!)
+        self.resultNotFountView?.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.resultNotFountView?.setResultLabel(text: text)
+        
+        self.resultNotFountView?.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        self.resultNotFountView?.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        self.resultNotFountView?.widthAnchor.constraint(equalToConstant: 200).isActive = true
+    }
+    
     private func reloadMoreData() {
+        // 검색 데이터인 경우,
         // startValue 최대 값이 1000이므로, 데이터 갯수가 998보다 많으면 return시킴.
-        if self.shoppingArray.count > 998 {
+        // 검색 시 기본 36개 검색이므로 35개 이하로 검색된 경우, 그 이상의 데이터가 없으므로 리턴 시킴.
+        if self.shoppingArray.count > 998, self.shoppingArray.count < 36, !self.isCategoryData {
+            self.isLoading = false
             return
+        }
+        
+        // 카테고리 데이터인 경우,
+        // 기본 카테고리 검색 시, 검색어당 6개씩 검색하는 로직이므로, 그 이상 데이터가 없으면 리턴.
+        if self.isCategoryData, let selectedCategory = categoryCollectionView.indexPathsForSelectedItems?.first {
+            let title = categoryTypeString(type: CategoryType(rawValue: selectedCategory.row)!)
+            let titleArray = Category.init(categoryTitle: title).categoryArray
+            
+            let categoryCount = (titleArray?.count)! * 6
+            
+            if self.shoppingArray.count > 998, self.shoppingArray.count < categoryCount {
+                self.isLoading = false
+                return
+            }
         }
         
         // 페이지 시작 지점 : 현재 데이터 개수의 + 1 위치...
@@ -267,11 +297,11 @@ class SearchResultViewController: UIViewController {
                     if self.resultCount == self.titleCategoryArray!.count {
                         self.resultSelectedCategoryItem(true, title: nil)
                     }
-                    
                 case let .Failure(error):
                     print("More Fetching Error \(error)")
                     self.categoryArray.removeAll()
                     self.resultCount = 0
+                    self.isLoading = false
                 }
             }
             // 검색 시 리로드.
@@ -287,6 +317,7 @@ class SearchResultViewController: UIViewController {
                     self.isLoading = false
                 case let .Failure(error):
                     print("More Fetching Error \(error)")
+                    self.isLoading = false
                 }
             }
         }
@@ -297,29 +328,31 @@ class SearchResultViewController: UIViewController {
             switch shoppingResult {
             case let .Success(shopping):
                 print("Result Shopping data : \(shopping.count)")
-                
-                if type == .resultCollectionView {
+                if shopping.count > 0 {
                     self.shoppingArray = shopping
                     // 검색어 저장 메소드로 수정.
                     self.shopping.setRecentFindData(findString: text)
                     self.isCategoryData = false
-                } else {
-                    self.categoryArray.append(contentsOf: shopping)
+                    
+                    DispatchQueue.main.async {
+                        self.resultCollectionView.reloadData()
+                        self.animatedTextfield(isShow: true)
+                        self.navigationItem.title = self.shopping.recentFind.first
+                        self.textField.text = ""
+                        self.updateTableView()
+                    }
                 }
                 
-                DispatchQueue.main.async {
-                    self.textField.resignFirstResponder()
-                    self.resultCollectionView.reloadData()
-                    self.animatedTextfield(isShow: true)
-                    self.navigationItem.title = self.shopping.recentFind.first
-                    self.textField.text = ""
-                    self.updateTableView()
-                }
             case let .Failure(error):
                 print("Result Fetching Error \(error)")
                 DispatchQueue.main.async {
-                    self.textField.resignFirstResponder()
                     self.animatedTextfield(isShow: true)
+                    
+                    self.setResultNotFoundView(text: text)
+                    self.resultNotFountView?.isShow = false
+                    self.resultNotFountView?.animateResultView()
+                    
+                    self.textField.text = ""
                 }
             }
         }

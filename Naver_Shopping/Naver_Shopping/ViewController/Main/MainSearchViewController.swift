@@ -17,6 +17,9 @@ class MainSearchViewController: UIViewController {
     @IBOutlet weak var tableView: RecentFindTableView!
     @IBOutlet weak var tableViewHeightConst: NSLayoutConstraint!
     
+    // 검색 결과 없음 창 관련.
+    var resultNotFountView: ResultNotFoundView?
+    
     let cellHeight:CGFloat = 35.0
     
     var shopping: ShoppingStore!
@@ -61,7 +64,6 @@ class MainSearchViewController: UIViewController {
     }
     
     @IBAction func touchedBgButton(_ sender: Any) {
-        self.textField.resignFirstResponder()
         self.animatedTextfield(isShow: isShow)
     }
     
@@ -76,6 +78,7 @@ class MainSearchViewController: UIViewController {
         UIView.animate(withDuration: 0.3) {
             
             if isShow {
+                self.textField.resignFirstResponder()
                 self.textFieldConst = self.textField.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
                 self.textFieldConst.isActive = true
                 self.bgButton.isHidden = true
@@ -97,22 +100,46 @@ class MainSearchViewController: UIViewController {
             switch shoppingResult {
             case let .Success(shopping):
                 print("Shopping data : \(shopping.count)")
-                self.shoppingArray = shopping
-                // 검색어 저장 메소드로 수정.
-                self.shopping.setRecentFindData(findString: text)
-                DispatchQueue.main.async {
-                    self.performSegue(withIdentifier: "ShowSearch", sender: self)
-                    self.textField.resignFirstResponder()
-                    self.animatedTextfield(isShow: true)
-                    self.textField.text = ""
-                    self.updateTableView()
+                if shopping.count > 0 {
+                    self.shoppingArray = shopping
+                    // 검색어 저장 메소드로 수정.
+                    self.shopping.setRecentFindData(findString: text)
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: "ShowSearch", sender: self)
+                        
+                        self.animatedTextfield(isShow: true)
+                        self.textField.text = ""
+                        self.updateTableView()
+                    }
                 }
+                
             case let .Failure(error):
                 print("Fetching Error \(error)")
+                
+                DispatchQueue.main.async {
+                    self.animatedTextfield(isShow: true)
+                    
+                    self.setResultNotFoundView(text: text)
+                    self.resultNotFountView?.isShow = false
+                    self.resultNotFountView?.animateResultView()
+                    
+                    self.textField.text = ""
+                }
             }
         }
     }
     
+    private func setResultNotFoundView(text: String) {
+        self.resultNotFountView = ResultNotFoundView.initResultNotFoundView()
+        self.view.addSubview(self.resultNotFountView!)
+        self.resultNotFountView?.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.resultNotFountView?.setResultLabel(text: text)
+        
+        self.resultNotFountView?.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        self.resultNotFountView?.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        self.resultNotFountView?.widthAnchor.constraint(equalToConstant: 200).isActive = true
+    }
 }
 
 extension MainSearchViewController: UITextFieldDelegate {
@@ -130,7 +157,6 @@ extension MainSearchViewController: UITextFieldDelegate {
             self.pushSearchFindString(text: textField.text!)
             return true
         } else {
-            self.textField.resignFirstResponder()
             self.animatedTextfield(isShow: true)
             return false
         }

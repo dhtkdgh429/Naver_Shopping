@@ -18,7 +18,8 @@ enum ShoppingResult {
 }
 
 enum ShoppingError: Error {
-    case InvalidJSONData(String)
+    case InvalidJSONData(String),
+    NotFoundData(String)
 }
 
 //400    SE01    Incorrect query request (잘못된 쿼리요청입니다.)    검색 API 요청에 오류가 있습니다. 요청 URL, 필수 요청 변수가 정확한지 확인 바랍니다.
@@ -100,8 +101,9 @@ struct NaverAPI {
                 }
             }
             
-            if finalShoppings.count == 0 {
-                return .Failure(ShoppingError.InvalidJSONData as! Error)
+            if finalShoppings.count == 0, let startIndex = jsonDictionary["start"] as? Int, startIndex < 1000 {
+                let error = "Search Result is not found"
+                return .Failure(ShoppingError.NotFoundData(error))
             }
             
             return .Success(finalShoppings)
